@@ -2,38 +2,56 @@ import { useEffect, useState } from 'react';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { format } from 'date-fns';
-import Countdown from '../components/Countdown';
 import './Home.css';
 
 const Home = () => {
-  const [upcomingMatch, setUpcomingMatch] = useState(null);
+  const [upcomingMatches, setUpcomingMatches] = useState([]);
   const [recentMatches, setRecentMatches] = useState([]);
+  const [players, setPlayers] = useState([]);
+  const [coaches, setCoaches] = useState([]);
+  const [activeTab, setActiveTab] = useState('players');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMatches();
+    fetchData();
   }, []);
 
-  const fetchMatches = async () => {
+  const fetchData = async () => {
     try {
+      // Fetch matches
       const matchesRef = collection(db, 'matches');
-      const q = query(matchesRef, orderBy('date', 'desc'), limit(4));
-      const snapshot = await getDocs(q);
+      const matchesQuery = query(matchesRef, orderBy('date', 'desc'), limit(10));
+      const matchesSnapshot = await getDocs(matchesQuery);
       
-      const matches = snapshot.docs.map(doc => ({
+      const matches = matchesSnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
 
       const now = new Date();
-      const upcoming = matches.find(m => m.date?.toDate() > now);
+      const upcoming = matches.filter(m => m.date?.toDate() > now).slice(0, 3);
       const recent = matches.filter(m => m.date?.toDate() <= now).slice(0, 3);
 
-      setUpcomingMatch(upcoming);
+      setUpcomingMatches(upcoming);
       setRecentMatches(recent);
+
+      // Fetch players
+      const playersRef = collection(db, 'players');
+      const playersSnapshot = await getDocs(playersRef);
+      const playersData = playersSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      // Separate players and coaches
+      const playersList = playersData.filter(p => p.role !== 'Coach');
+      const coachesList = playersData.filter(p => p.role === 'Coach');
+      
+      setPlayers(playersList);
+      setCoaches(coachesList);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching matches:', error);
+      console.error('Error fetching data:', error);
       setLoading(false);
     }
   };
@@ -44,82 +62,178 @@ const Home = () => {
 
   return (
     <div className="home">
-      <section className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">Welcome to BodaxGaming</h1>
-          <p className="hero-subtitle">Elite Esports Team</p>
-          <div className="hero-stats">
-            <div className="stat">
-              <div className="stat-value">🏆</div>
-              <div className="stat-label">Champions</div>
-            </div>
-            <div className="stat">
-              <div className="stat-value">💪</div>
-              <div className="stat-label">Dedicated</div>
-            </div>
-            <div className="stat">
-              <div className="stat-value">🎮</div>
-              <div className="stat-label">Gamers</div>
-            </div>
-          </div>
+      {/* Slogan Section */}
+      <section className="slogan-section">
+        <h1 className="main-title">BODAX GAMING</h1>
+        <p className="slogan">WHERE PERFORMANCE MEETS DESIGN.</p>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="team-section">
+        <h2 className="section-title">OUR TEAM</h2>
+        <div className="team-tabs">
+          <button 
+            className={`tab-button ${activeTab === 'players' ? 'active' : ''}`}
+            onClick={() => setActiveTab('players')}
+          >
+            PLAYERS
+          </button>
+          <button 
+            className={`tab-button ${activeTab === 'coaches' ? 'active' : ''}`}
+            onClick={() => setActiveTab('coaches')}
+          >
+            COACHES
+          </button>
+        </div>
+        
+        <div className="team-grid">
+          {activeTab === 'players' ? (
+            players.length > 0 ? (
+              players.map(player => (
+                <div key={player.id} className="team-member-card">
+                  <div className="member-portrait">
+                    {player.photoUrl ? (
+                      <img src={player.photoUrl} alt={player.fullName} />
+                    ) : (
+                      <div className="placeholder-portrait">PHOTO</div>
+                    )}
+                  </div>
+                  <div className="member-info">
+                    <h3 className="member-name">{player.fullName}</h3>
+                    <p className="member-ign">{player.ign}</p>
+                    <p className="member-role">{player.role}</p>
+                    <div className="member-socials">
+                      {player.socials?.twitter && (
+                        <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>
+                      )}
+                      {player.socials?.twitch && (
+                        <a href={player.socials.twitch} target="_blank" rel="noopener noreferrer">TWITCH</a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-data">No players added yet</div>
+            )
+          ) : (
+            coaches.length > 0 ? (
+              coaches.map(coach => (
+                <div key={coach.id} className="team-member-card">
+                  <div className="member-portrait">
+                    {coach.photoUrl ? (
+                      <img src={coach.photoUrl} alt={coach.fullName} />
+                    ) : (
+                      <div className="placeholder-portrait">PHOTO</div>
+                    )}
+                  </div>
+                  <div className="member-info">
+                    <h3 className="member-name">{coach.fullName}</h3>
+                    <p className="member-ign">{coach.ign}</p>
+                    <p className="member-role">{coach.role}</p>
+                    <div className="member-socials">
+                      {coach.socials?.twitter && (
+                        <a href={coach.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="no-data">No coaches added yet</div>
+            )
+          )}
         </div>
       </section>
 
-      <section className="next-match-section">
-        <h2>Next Match</h2>
-        {upcomingMatch ? (
-          <div className="next-match-card">
-            <div className="match-date">
-              {format(upcomingMatch.date.toDate(), 'EEEE, MMMM d, yyyy - HH:mm')}
-            </div>
-            <Countdown targetDate={upcomingMatch.date.toDate()} />
-            <div className="match-teams">
-              <div className="team">
-                <div className="team-name">BodaxGaming</div>
+      {/* Upcoming Games Section */}
+      <section id="upcoming-games" className="upcoming-games-section">
+        <h2 className="section-title">UPCOMING GAMES</h2>
+        <div className="games-container">
+          {upcomingMatches.length > 0 ? (
+            upcomingMatches.map(match => (
+              <div key={match.id} className="game-card">
+                <div className="game-header">
+                  <div className="game-date">
+                    {format(match.date.toDate(), 'MMM d, yyyy - HH:mm')}
+                  </div>
+                  <div className="game-tournament">{match.tournament}</div>
+                </div>
+                <div className="game-teams">
+                  <div className="team-info">
+                    <div className="team-logo">BODAX</div>
+                    <div className="team-name">BODAX GAMING</div>
+                  </div>
+                  <div className="vs">VS</div>
+                  <div className="team-info">
+                    <div className="team-logo">{match.opponent?.substring(0, 3).toUpperCase()}</div>
+                    <div className="team-name">{match.opponent}</div>
+                  </div>
+                </div>
+                <div className="game-details">
+                  <div className="stream-info">
+                    <a href={match.streamLink || '#'} target="_blank" rel="noopener noreferrer" className="stream-link">
+                      WATCH STREAM
+                    </a>
+                  </div>
+                  {match.caster && (
+                    <div className="caster-info">Caster: {match.caster}</div>
+                  )}
+                  {match.vlrLink && (
+                    <a href={match.vlrLink} target="_blank" rel="noopener noreferrer" className="vlr-link">
+                      VLR.GG
+                    </a>
+                  )}
+                </div>
               </div>
-              <div className="vs">VS</div>
-              <div className="team">
-                <div className="team-name">{upcomingMatch.opponent}</div>
-              </div>
-            </div>
-            <div className="match-tournament">{upcomingMatch.tournament}</div>
-          </div>
-        ) : (
-          <p className="no-matches">No upcoming matches scheduled</p>
-        )}
+            ))
+          ) : (
+            <div className="no-data">No upcoming matches scheduled</div>
+          )}
+        </div>
       </section>
 
-      <section className="recent-matches-section">
-        <h2>Recent Results</h2>
-        {recentMatches.length > 0 ? (
-          <div className="recent-matches-grid">
-            {recentMatches.map(match => (
-              <div key={match.id} className="recent-match-card">
-                <div className="match-date-small">
-                  {format(match.date.toDate(), 'MMM d, yyyy')}
+      {/* Recent Games Section */}
+      <section id="recent-games" className="recent-games-section">
+        <h2 className="section-title">RECENT GAMES</h2>
+        <div className="games-container">
+          {recentMatches.length > 0 ? (
+            recentMatches.map(match => (
+              <div key={match.id} className="game-card">
+                <div className="game-header">
+                  <div className="game-date">
+                    {format(match.date.toDate(), 'MMM d, yyyy')}
+                  </div>
+                  <div className="game-tournament">{match.tournament}</div>
                 </div>
-                <div className="match-result">
-                  <div className="team-score">
-                    <span className="team-name-small">BodaxGaming</span>
-                    <span className={`score ${match.ourScore > match.opponentScore ? 'win' : 'loss'}`}>
+                <div className="game-teams">
+                  <div className="team-info">
+                    <div className="team-logo">BODAX</div>
+                    <div className="team-name">BODAX GAMING</div>
+                    <div className={`team-score ${match.ourScore > match.opponentScore ? 'win' : 'loss'}`}>
                       {match.ourScore}
-                    </span>
+                    </div>
                   </div>
-                  <div className="score-separator">-</div>
-                  <div className="team-score">
-                    <span className={`score ${match.opponentScore > match.ourScore ? 'win' : 'loss'}`}>
+                  <div className="vs">VS</div>
+                  <div className="team-info">
+                    <div className="team-logo">{match.opponent?.substring(0, 3).toUpperCase()}</div>
+                    <div className="team-name">{match.opponent}</div>
+                    <div className={`team-score ${match.opponentScore > match.ourScore ? 'win' : 'loss'}`}>
                       {match.opponentScore}
-                    </span>
-                    <span className="team-name-small">{match.opponent}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="match-tournament-small">{match.tournament}</div>
+                <div className="game-result">
+                  <div className={`result ${match.ourScore > match.opponentScore ? 'victory' : 'defeat'}`}>
+                    {match.ourScore > match.opponentScore ? 'VICTORY' : 'DEFEAT'}
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <p className="no-matches">No recent matches</p>
-        )}
+            ))
+          ) : (
+            <div className="no-data">No recent matches</div>
+          )}
+        </div>
       </section>
     </div>
   );

@@ -11,10 +11,11 @@ import {
   Timestamp 
 } from 'firebase/firestore';
 import { db } from '../firebase';
+import { seedDatabase, checkDataExists } from '../seedData';
 import './Admin.css';
 
 const Admin = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('matches');
   
@@ -25,16 +26,21 @@ const Admin = () => {
     date: '',
     time: '',
     ourScore: '',
-    opponentScore: ''
+    opponentScore: '',
+    streamLink: '',
+    caster: '',
+    vlrLink: ''
   });
 
   // Player form state
   const [playerForm, setPlayerForm] = useState({
-    name: '',
+    fullName: '',
     ign: '',
     role: '',
     bio: '',
-    photoURL: ''
+    photoUrl: '',
+    twitter: '',
+    twitch: ''
   });
 
   const [matches, setMatches] = useState([]);
@@ -42,6 +48,8 @@ const Admin = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [editingMatch, setEditingMatch] = useState(null);
+  const [dataExists, setDataExists] = useState({ hasPlayers: false, hasMatches: false, playerCount: 0, matchCount: 0 });
+  const [seeding, setSeeding] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -53,6 +61,8 @@ const Admin = () => {
 
   const fetchData = async () => {
     await Promise.all([fetchMatches(), fetchPlayers()]);
+    const dataCheck = await checkDataExists();
+    setDataExists(dataCheck);
   };
 
   const fetchMatches = async () => {
@@ -97,6 +107,9 @@ const Admin = () => {
           date: Timestamp.fromDate(dateTime),
           ourScore: parseInt(matchForm.ourScore) || 0,
           opponentScore: parseInt(matchForm.opponentScore) || 0,
+          streamLink: matchForm.streamLink,
+          caster: matchForm.caster,
+          vlrLink: matchForm.vlrLink,
         });
         setMessage('Match updated successfully!');
         setEditingMatch(null);
@@ -108,6 +121,9 @@ const Admin = () => {
           date: Timestamp.fromDate(dateTime),
           ourScore: parseInt(matchForm.ourScore) || 0,
           opponentScore: parseInt(matchForm.opponentScore) || 0,
+          streamLink: matchForm.streamLink,
+          caster: matchForm.caster,
+          vlrLink: matchForm.vlrLink,
           createdAt: Timestamp.now()
         });
         setMessage('Match added successfully!');
@@ -119,7 +135,10 @@ const Admin = () => {
         date: '',
         time: '',
         ourScore: '',
-        opponentScore: ''
+        opponentScore: '',
+        streamLink: '',
+        caster: '',
+        vlrLink: ''
       });
       
       await fetchMatches();
@@ -138,21 +157,27 @@ const Admin = () => {
 
     try {
       await addDoc(collection(db, 'players'), {
-        name: playerForm.name,
+        fullName: playerForm.fullName,
         ign: playerForm.ign,
         role: playerForm.role,
         bio: playerForm.bio,
-        photoURL: playerForm.photoURL,
+        photoUrl: playerForm.photoUrl,
+        socials: {
+          twitter: playerForm.twitter,
+          twitch: playerForm.twitch
+        },
         createdAt: Timestamp.now()
       });
 
       setMessage('Player added successfully!');
       setPlayerForm({
-        name: '',
+        fullName: '',
         ign: '',
         role: '',
         bio: '',
-        photoURL: ''
+        photoUrl: '',
+        twitter: '',
+        twitch: ''
       });
       
       await fetchPlayers();
@@ -199,7 +224,10 @@ const Admin = () => {
       date: matchDate.toISOString().split('T')[0],
       time: matchDate.toTimeString().slice(0, 5),
       ourScore: match.ourScore.toString(),
-      opponentScore: match.opponentScore.toString()
+      opponentScore: match.opponentScore.toString(),
+      streamLink: match.streamLink || '',
+      caster: match.caster || '',
+      vlrLink: match.vlrLink || ''
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -212,19 +240,62 @@ const Admin = () => {
       date: '',
       time: '',
       ourScore: '',
-      opponentScore: ''
+      opponentScore: '',
+      streamLink: '',
+      caster: '',
+      vlrLink: ''
     });
+  };
+
+  const handleSeedData = async () => {
+    if (window.confirm('This will add example players, coaches, and matches to your database. Continue?')) {
+      setSeeding(true);
+      setMessage('');
+      
+      try {
+        await seedDatabase();
+        setMessage('Example data added successfully!');
+        await fetchData(); // Refresh the data
+      } catch (error) {
+        console.error('Error seeding data:', error);
+        setMessage('Error adding example data. Please try again.');
+      } finally {
+        setSeeding(false);
+      }
+    }
   };
 
   if (!currentUser) {
     return null;
   }
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <div className="admin-page">
       <div className="admin-header">
         <h1>Admin Dashboard</h1>
         <p>Manage your team's matches and players</p>
+        <div className="admin-header-actions">
+          <button onClick={() => navigate('/')} className="home-btn">
+            VIEW SITE
+          </button>
+          {(!dataExists.hasPlayers || !dataExists.hasMatches) && (
+            <button onClick={handleSeedData} disabled={seeding} className="seed-btn">
+              {seeding ? 'ADDING...' : 'ADD EXAMPLE DATA'}
+            </button>
+          )}
+          <button onClick={handleLogout} className="logout-btn">
+            LOGOUT
+          </button>
+        </div>
       </div>
 
       {message && (
@@ -326,6 +397,37 @@ const Admin = () => {
                 </div>
               </div>
 
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Stream Link (optional)</label>
+                  <input
+                    type="url"
+                    value={matchForm.streamLink}
+                    onChange={(e) => setMatchForm({...matchForm, streamLink: e.target.value})}
+                    placeholder="https://twitch.tv/..."
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Caster Name (optional)</label>
+                  <input
+                    type="text"
+                    value={matchForm.caster}
+                    onChange={(e) => setMatchForm({...matchForm, caster: e.target.value})}
+                    placeholder="Caster Name"
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>VLR.GG Link (optional)</label>
+                <input
+                  type="url"
+                  value={matchForm.vlrLink}
+                  onChange={(e) => setMatchForm({...matchForm, vlrLink: e.target.value})}
+                  placeholder="https://vlr.gg/..."
+                />
+              </div>
+
               <button type="submit" disabled={loading} className="submit-btn">
                 {loading ? 'Saving...' : editingMatch ? 'Update Match' : 'Add Match'}
               </button>
@@ -385,8 +487,8 @@ const Admin = () => {
                   <label>Full Name</label>
                   <input
                     type="text"
-                    value={playerForm.name}
-                    onChange={(e) => setPlayerForm({...playerForm, name: e.target.value})}
+                    value={playerForm.fullName}
+                    onChange={(e) => setPlayerForm({...playerForm, fullName: e.target.value})}
                     required
                     placeholder="John Doe"
                   />
@@ -428,10 +530,31 @@ const Admin = () => {
                 <label>Photo URL (optional)</label>
                 <input
                   type="url"
-                  value={playerForm.photoURL}
-                  onChange={(e) => setPlayerForm({...playerForm, photoURL: e.target.value})}
+                  value={playerForm.photoUrl}
+                  onChange={(e) => setPlayerForm({...playerForm, photoUrl: e.target.value})}
                   placeholder="https://example.com/photo.jpg"
                 />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Twitter URL (optional)</label>
+                  <input
+                    type="url"
+                    value={playerForm.twitter}
+                    onChange={(e) => setPlayerForm({...playerForm, twitter: e.target.value})}
+                    placeholder="https://twitter.com/username"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Twitch URL (optional)</label>
+                  <input
+                    type="url"
+                    value={playerForm.twitch}
+                    onChange={(e) => setPlayerForm({...playerForm, twitch: e.target.value})}
+                    placeholder="https://twitch.tv/username"
+                  />
+                </div>
               </div>
 
               <button type="submit" disabled={loading} className="submit-btn">
@@ -448,7 +571,7 @@ const Admin = () => {
                   <div key={player.id} className="admin-item">
                     <div className="item-content">
                       <div className="item-title">
-                        {player.name} ({player.ign})
+                        {player.fullName || player.name} ({player.ign})
                       </div>
                       <div className="item-details">
                         {player.role}

@@ -1,107 +1,58 @@
-import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
-  const { currentUser, login, signup, logout } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSignup, setIsSignup] = useState(false);
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setMessage('');
-
-    try {
-      if (isSignup) {
-        await signup(email, password);
-        setMessage('Account created! You can now login.');
-        setEmail('');
-        setPassword('');
-        setIsSignup(false);
-      } else {
-        await login(email, password);
-        setMessage('Logged in successfully!');
-        setEmail('');
-        setPassword('');
-        navigate('/admin');
-      }
-    } catch (error) {
-      setError(error.message || 'Authentication failed');
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setMessage('Logged out successfully');
-    } catch (error) {
-      setError('Failed to logout');
-    }
-  };
-
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-content">
-          <div className="footer-info">
-            <h3>BodaxGaming</h3>
-            <p>&copy; 2025 BodaxGaming. All rights reserved.</p>
+        {/* Social Links Section */}
+        <div className="footer-section">
+          <h3 className="footer-title">FOLLOW US</h3>
+          <div className="social-links">
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/x.svg" alt="X" className="social-icon" />
+              <span className="social-text">X</span>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/instagram.svg" alt="Instagram" className="social-icon" />
+              <span className="social-text">INSTAGRAM</span>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/youtube.svg" alt="YouTube" className="social-icon" />
+              <span className="social-text">YOUTUBE</span>
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/tiktok.svg" alt="TikTok" className="social-icon" />
+              <span className="social-text">TIKTOK</span>
+            </a>
           </div>
+        </div>
 
-          <div className="footer-auth">
-            {currentUser ? (
-              <div className="auth-status">
-                <p>Logged in as: {currentUser.email}</p>
-                <button onClick={handleLogout} className="footer-btn">
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="auth-form">
-                <h4>{isSignup ? 'Sign Up' : 'Admin Login'}</h4>
-                {error && <div className="footer-error">{error}</div>}
-                {message && <div className="footer-message">{message}</div>}
-                <form onSubmit={handleSubmit}>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  <button type="submit" className="footer-btn">
-                    {isSignup ? 'Sign Up' : 'Login'}
-                  </button>
-                </form>
-                <p className="toggle-auth">
-                  {isSignup ? 'Already have an account? ' : "Don't have an account? "}
-                  <button 
-                    onClick={() => {
-                      setIsSignup(!isSignup);
-                      setError('');
-                      setMessage('');
-                    }}
-                    className="toggle-btn"
-                  >
-                    {isSignup ? 'Login' : 'Sign Up'}
-                  </button>
-                </p>
-              </div>
-            )}
+        {/* Sponsor Section */}
+        <div className="footer-section">
+          <h3 className="footer-title">SPONSORED BY</h3>
+          <div className="sponsor-section">
+            <div className="sponsor-logo">
+              <div className="logo-placeholder">BODAX</div>
+            </div>
+            <p className="sponsor-text">Official Gaming Partner</p>
           </div>
+        </div>
+
+        {/* Other Links Section */}
+        <div className="footer-section">
+          <h3 className="footer-title">OTHER</h3>
+          <div className="other-links">
+            <a href="https://bodaxskirmishes.com" target="_blank" rel="noopener noreferrer" className="other-link">
+              BODAX SKIRMISHES
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div className="footer-bottom">
+        <div className="footer-bottom-content">
+          <p className="copyright">© 2025 BODAX GAMING. ALL RIGHTS RESERVED.</p>
+          <a href="/impressum" className="impressum-link">IMPRESSUM</a>
         </div>
       </div>
     </footer>
@@ -109,4 +60,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

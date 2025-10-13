@@ -1,10 +1,42 @@
+/* Custom Font Declarations */
+@font-face {
+  font-family: 'AstroMono';
+  src: url('/fonts/AstroMono-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AstroMono';
+  src: url('/fonts/AstroMono-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #1a1a1a;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  background-color: #0a0a0a;
   color: #ffffff;
+  overflow-x: hidden;
 }
 
 #root {
   width: 100%;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
 }
