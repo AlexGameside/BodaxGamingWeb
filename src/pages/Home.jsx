@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { format } from 'date-fns';
+import Countdown from '../components/Countdown';
 import './Home.css';
 
 const Home = () => {
@@ -71,6 +72,7 @@ const Home = () => {
             <div className="match-date">
               {format(upcomingMatch.date.toDate(), 'EEEE, MMMM d, yyyy - HH:mm')}
             </div>
+            <Countdown targetDate={upcomingMatch.date.toDate()} />
             <div className="match-teams">
               <div className="team">
                 <div className="team-name">BodaxGaming</div>

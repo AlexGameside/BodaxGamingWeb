@@ -41,6 +41,7 @@ const Admin = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [editingMatch, setEditingMatch] = useState(null);
 
   useEffect(() => {
     if (!currentUser) {
@@ -88,16 +89,30 @@ const Admin = () => {
     try {
       const dateTime = new Date(`${matchForm.date}T${matchForm.time}`);
       
-      await addDoc(collection(db, 'matches'), {
-        opponent: matchForm.opponent,
-        tournament: matchForm.tournament,
-        date: Timestamp.fromDate(dateTime),
-        ourScore: parseInt(matchForm.ourScore) || 0,
-        opponentScore: parseInt(matchForm.opponentScore) || 0,
-        createdAt: Timestamp.now()
-      });
+      if (editingMatch) {
+        // Update existing match
+        await updateDoc(doc(db, 'matches', editingMatch.id), {
+          opponent: matchForm.opponent,
+          tournament: matchForm.tournament,
+          date: Timestamp.fromDate(dateTime),
+          ourScore: parseInt(matchForm.ourScore) || 0,
+          opponentScore: parseInt(matchForm.opponentScore) || 0,
+        });
+        setMessage('Match updated successfully!');
+        setEditingMatch(null);
+      } else {
+        // Add new match
+        await addDoc(collection(db, 'matches'), {
+          opponent: matchForm.opponent,
+          tournament: matchForm.tournament,
+          date: Timestamp.fromDate(dateTime),
+          ourScore: parseInt(matchForm.ourScore) || 0,
+          opponentScore: parseInt(matchForm.opponentScore) || 0,
+          createdAt: Timestamp.now()
+        });
+        setMessage('Match added successfully!');
+      }
 
-      setMessage('Match added successfully!');
       setMatchForm({
         opponent: '',
         tournament: '',
@@ -109,8 +124,8 @@ const Admin = () => {
       
       await fetchMatches();
     } catch (error) {
-      console.error('Error adding match:', error);
-      setMessage('Error adding match. Please try again.');
+      console.error('Error saving match:', error);
+      setMessage('Error saving match. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -175,6 +190,32 @@ const Admin = () => {
     }
   };
 
+  const startEditMatch = (match) => {
+    const matchDate = match.date.toDate();
+    setEditingMatch(match);
+    setMatchForm({
+      opponent: match.opponent,
+      tournament: match.tournament,
+      date: matchDate.toISOString().split('T')[0],
+      time: matchDate.toTimeString().slice(0, 5),
+      ourScore: match.ourScore.toString(),
+      opponentScore: match.opponentScore.toString()
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const cancelEdit = () => {
+    setEditingMatch(null);
+    setMatchForm({
+      opponent: '',
+      tournament: '',
+      date: '',
+      time: '',
+      ourScore: '',
+      opponentScore: ''
+    });
+  };
+
   if (!currentUser) {
     return null;
   }
@@ -210,7 +251,13 @@ const Admin = () => {
       {activeTab === 'matches' && (
         <div className="admin-section">
           <div className="admin-form-container">
-            <h2>Add New Match</h2>
+            <h2>{editingMatch ? 'Edit Match' : 'Add New Match'}</h2>
+            {editingMatch && (
+              <p className="edit-notice">
+                Editing match vs {editingMatch.opponent}
+                <button onClick={cancelEdit} className="cancel-edit-btn">Cancel Edit</button>
+              </p>
+            )}
             <form onSubmit={handleMatchSubmit} className="admin-form">
               <div className="form-row">
                 <div className="form-group">
@@ -258,7 +305,7 @@ const Admin = () => {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>Our Score</label>
+                  <label>Our Score (0 for upcoming matches)</label>
                   <input
                     type="number"
                     value={matchForm.ourScore}
@@ -268,7 +315,7 @@ const Admin = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Opponent Score</label>
+                  <label>Opponent Score (0 for upcoming matches)</label>
                   <input
                     type="number"
                     value={matchForm.opponentScore}
@@ -280,7 +327,7 @@ const Admin = () => {
               </div>
 
               <button type="submit" disabled={loading} className="submit-btn">
-                {loading ? 'Adding...' : 'Add Match'}
+                {loading ? 'Saving...' : editingMatch ? 'Update Match' : 'Add Match'}
               </button>
             </form>
           </div>
@@ -289,25 +336,37 @@ const Admin = () => {
             <h2>All Matches ({matches.length})</h2>
             {matches.length > 0 ? (
               <div className="admin-items">
-                {matches.map(match => (
-                  <div key={match.id} className="admin-item">
-                    <div className="item-content">
-                      <div className="item-title">
-                        BodaxGaming vs {match.opponent}
+                {matches.map(match => {
+                  const isPast = match.date?.toDate() <= new Date();
+                  return (
+                    <div key={match.id} className="admin-item">
+                      <div className="item-content">
+                        <div className="item-title">
+                          BodaxGaming vs {match.opponent}
+                        </div>
+                        <div className="item-details">
+                          {match.tournament} | {match.date?.toDate().toLocaleDateString()} | 
+                          Score: {match.ourScore} - {match.opponentScore}
+                          {isPast ? ' (Completed)' : ' (Upcoming)'}
+                        </div>
                       </div>
-                      <div className="item-details">
-                        {match.tournament} | {match.date?.toDate().toLocaleDateString()} | 
-                        Score: {match.ourScore} - {match.opponentScore}
+                      <div className="admin-actions">
+                        <button 
+                          onClick={() => startEditMatch(match)}
+                          className="edit-btn"
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          onClick={() => deleteMatch(match.id)}
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
-                    <button 
-                      onClick={() => deleteMatch(match.id)}
-                      className="delete-btn"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <p className="no-items">No matches added yet.</p>
@@ -415,4 +474,3 @@ const Admin = () => {
 };
 
 export default Admin;
-
