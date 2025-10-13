@@ -1,0 +1,128 @@
+.matches-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.matches-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background: #333;
+}
+
+.filter-btn.active {
+  background: #444;
+  border-color: #666;
+}
+
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.match-card {
+  background: #222;
+  border: 1px solid #333;
+  padding: 20px;
+}
+
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+}
+
+.match-date {
+  font-weight: bold;
+}
+
+.match-time {
+  color: #999;
+}
+
+.match-teams-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.team-info {
+  flex: 1;
+  text-align: center;
+}
+
+.team-name-large {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.team-score-large {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.team-score-large.win {
+  color: #4caf50;
+}
+
+.team-score-large.loss {
+  color: #f44336;
+}
+
+.vs-divider {
+  font-size: 16px;
+  padding: 0 20px;
+}
+
+.match-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.match-tournament {
+  color: #999;
+}
+
+.match-result-badge {
+  padding: 5px 15px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.match-result-badge.victory {
+  background: #4caf50;
+  color: #000;
+}
+
+.match-result-badge.defeat {
+  background: #f44336;
+  color: #fff;
+}
+
+.no-matches-found {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}

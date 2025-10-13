@@ -1,0 +1,161 @@
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hero {
+  background: #222;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #999;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #999;
+}
+
+.next-match-section,
+.recent-matches-section {
+  margin-bottom: 40px;
+}
+
+.next-match-section h2,
+.recent-matches-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.next-match-card {
+  background: #222;
+  border: 1px solid #333;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.match-date {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.match-teams {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.team-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.vs {
+  font-size: 16px;
+  padding: 0 20px;
+}
+
+.match-tournament {
+  text-align: center;
+  color: #999;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+}
+
+.no-matches {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+}
+
+.recent-matches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.recent-match-card {
+  background: #222;
+  border: 1px solid #333;
+  padding: 15px;
+}
+
+.match-date-small {
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.match-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.team-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.team-name-small {
+  font-size: 14px;
+  color: #999;
+}
+
+.score {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.score.win {
+  color: #4caf50;
+}
+
+.score.loss {
+  color: #f44336;
+}
+
+.score-separator {
+  color: #666;
+}
+
+.match-tournament-small {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+}
