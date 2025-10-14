@@ -21,7 +21,7 @@
 }
 
 .login-card h2 {
-  font-size: 28px;
+  font-size: 32px;
   margin-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -57,14 +57,14 @@
   gap: 25px;
 }
 
-.form-group {
+.login-page .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
   text-align: left;
 }
 
-.form-group label {
+.login-page .form-group label {
   color: #e5294f;
   font-size: 12px;
   text-transform: uppercase;
@@ -73,7 +73,7 @@
   font-family: 'AstroMono', 'Courier New', monospace;
 }
 
-.form-group input {
+.login-page .form-group input {
   padding: 15px;
   background: #000000;
   border: 2px solid rgba(229, 41, 79, 0.2);
@@ -84,12 +84,12 @@
   transition: all 0.3s ease;
 }
 
-.form-group input:focus {
+.login-page .form-group input:focus {
   outline: none;
   border-color: #e5294f;
 }
 
-.form-group input::placeholder {
+.login-page .form-group input::placeholder {
   color: #666;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -120,4 +120,23 @@
 .login-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .login-card h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-card h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card h2 {
+    font-size: 20px;
+  }
 }

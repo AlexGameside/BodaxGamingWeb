@@ -12,17 +12,13 @@ const Footer = () => {
               <img src="/icons/social/x.svg" alt="X" className="social-icon" />
               <span className="social-text">X</span>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/instagram.svg" alt="Instagram" className="social-icon" />
-              <span className="social-text">INSTAGRAM</span>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/youtube.svg" alt="YouTube" className="social-icon" />
-              <span className="social-text">YOUTUBE</span>
-            </a>
             <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="social-link">
               <img src="/icons/social/tiktok.svg" alt="TikTok" className="social-icon" />
               <span className="social-text">TIKTOK</span>
+            </a>
+            <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
+              <span className="social-text">DISCORD</span>
             </a>
           </div>
         </div>

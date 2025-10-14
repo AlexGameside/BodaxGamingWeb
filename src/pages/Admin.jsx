@@ -29,7 +29,6 @@ const Admin = () => {
     ourScore: '',
     opponentScore: '',
     streamLink: '',
-    caster: '',
     vlrLink: ''
   });
 
@@ -125,7 +124,6 @@ const Admin = () => {
           ourScore: parseInt(matchForm.ourScore) || 0,
           opponentScore: parseInt(matchForm.opponentScore) || 0,
           streamLink: matchForm.streamLink,
-          caster: matchForm.caster,
           vlrLink: matchForm.vlrLink,
         });
         setMessage('Match updated successfully!');
@@ -139,7 +137,6 @@ const Admin = () => {
           ourScore: parseInt(matchForm.ourScore) || 0,
           opponentScore: parseInt(matchForm.opponentScore) || 0,
           streamLink: matchForm.streamLink,
-          caster: matchForm.caster,
           vlrLink: matchForm.vlrLink,
           createdAt: Timestamp.now()
         });
@@ -154,7 +151,6 @@ const Admin = () => {
         ourScore: '',
         opponentScore: '',
         streamLink: '',
-        caster: '',
         vlrLink: ''
       });
       
@@ -243,7 +239,6 @@ const Admin = () => {
       ourScore: match.ourScore.toString(),
       opponentScore: match.opponentScore.toString(),
       streamLink: match.streamLink || '',
-      caster: match.caster || '',
       vlrLink: match.vlrLink || ''
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -296,7 +291,6 @@ const Admin = () => {
       ourScore: '',
       opponentScore: '',
       streamLink: '',
-      caster: '',
       vlrLink: ''
     });
   };
@@ -472,13 +466,6 @@ const Admin = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Caster Name (optional)</label>
-                  <input
-                    type="text"
-                    value={matchForm.caster}
-                    onChange={(e) => setMatchForm({...matchForm, caster: e.target.value})}
-                    placeholder="Caster Name"
-                  />
                 </div>
               </div>
 

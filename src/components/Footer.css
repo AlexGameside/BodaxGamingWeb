@@ -49,7 +49,7 @@
   align-items: center;
 }
 
-.social-link {
+.footer .social-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -68,18 +68,17 @@
   box-sizing: border-box;
 }
 
-.social-link:hover {
+.footer .social-link:hover {
   color: #e5294f;
 }
 
-.social-link:hover .social-icon {
-  filter: brightness(0) invert(1);
+.footer .social-link:hover .social-icon {
+  transform: scale(1.1);
 }
 
 .social-icon {
   width: 20px;
   height: 20px;
-  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   transition: all 0.3s ease;
 }
 

@@ -1,0 +1,48 @@
+/* Typing Animation Styles */
+.typing-text {
+  display: inline-block;
+  position: relative;
+}
+
+.typing-cursor {
+  display: inline-block;
+  background-color: #e5294f;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  vertical-align: baseline;
+}
+
+.typing-cursor.typing {
+  animation: none;
+  opacity: 1;
+}
+
+.typing-cursor.blinking {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Responsive cursor size */
+@media (max-width: 768px) {
+  .typing-cursor {
+    width: 1.5px;
+    margin-left: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .typing-cursor {
+    width: 1px;
+    margin-left: 1px;
+  }
+}

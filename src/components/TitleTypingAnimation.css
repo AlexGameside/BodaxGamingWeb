@@ -1,0 +1,33 @@
+/* Title Typing Animation Styles */
+.title-typing-text {
+  display: inline-block;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.title-typing-text.complete {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .title-typing-text {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-typing-text {
+    font-size: 0.8em;
+  }
+}

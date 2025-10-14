@@ -12,7 +12,7 @@
 }
 
 .admin-header h1 {
-  font-size: 36px;
+  font-size: 32px;
   margin-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -236,13 +236,13 @@
   gap: 25px;
 }
 
-.form-group {
+.admin-page .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.form-group label {
+.admin-page .form-group label {
   color: #e5294f;
   font-size: 12px;
   text-transform: uppercase;
@@ -251,8 +251,8 @@
   font-family: 'AstroMono', 'Courier New', monospace;
 }
 
-.form-group input,
-.form-group textarea {
+.admin-page .form-group input,
+.admin-page .form-group textarea {
   padding: 15px;
   background: #000000;
   border: 2px solid rgba(229, 41, 79, 0.2);
@@ -264,38 +264,38 @@
 }
 
 /* Specific styling for date and time inputs */
-.form-group input[type="date"],
-.form-group input[type="time"] {
+.admin-page .form-group input[type="date"],
+.admin-page .form-group input[type="time"] {
   color-scheme: dark;
 }
 
-.form-group input[type="date"]::-webkit-calendar-picker-indicator,
-.form-group input[type="time"]::-webkit-calendar-picker-indicator {
+.admin-page .form-group input[type="date"]::-webkit-calendar-picker-indicator,
+.admin-page .form-group input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
   opacity: 0.8;
 }
 
-.form-group input[type="date"]::-webkit-calendar-picker-indicator:hover,
-.form-group input[type="time"]::-webkit-calendar-picker-indicator:hover {
+.admin-page .form-group input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.admin-page .form-group input[type="time"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.admin-page .form-group input:focus,
+.admin-page .form-group textarea:focus {
   outline: none;
   border-color: #e5294f;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.admin-page .form-group input::placeholder,
+.admin-page .form-group textarea::placeholder {
   color: #666;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 12px;
 }
 
-.form-group textarea {
+.admin-page .form-group textarea {
   resize: vertical;
   min-height: 100px;
 }
@@ -507,7 +507,17 @@
   font-family: 'AstroMono', 'Courier New', monospace;
 }
 
+@media (max-width: 1200px) {
+  .admin-header h1 {
+    font-size: 28px;
+  }
+}
+
 @media (max-width: 768px) {
+  .admin-header h1 {
+    font-size: 24px;
+  }
+  
   .admin-item {
     flex-direction: column;
     align-items: stretch;
@@ -527,5 +537,11 @@
   .filter-tab {
     width: 100%;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-header h1 {
+    font-size: 20px;
   }
 }

@@ -59,7 +59,7 @@ const Navbar = () => {
         {/* Left Column - Logo */}
         <div className="nav-left">
           <Link to="/" className="nav-logo">
-            <img src="/icons/logos/bodax-gaming_logo.png" alt="BODAX Gaming" className="nav-logo-img" />
+            <img src="/icons/logos/bodax-gaming_logo_2.svg" alt="BODAX Gaming" className="nav-logo-img" />
           </Link>
         </div>
 
@@ -90,7 +90,10 @@ const Navbar = () => {
               <img src="/icons/social/x.svg" alt="X" className="social-icon" />
             </a>
             <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="social-link">
-              <span className="social-icon">💬</span>
+              <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
+            </a>
+            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/twitch.svg" alt="Twitch" className="social-icon" />
             </a>
           </div>
           
@@ -132,8 +135,12 @@ const Navbar = () => {
               <span>X</span>
             </a>
             <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
-              <span className="social-icon">💬</span>
+              <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
               <span>DISCORD</span>
+            </a>
+            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
+              <img src="/icons/social/twitch.svg" alt="Twitch" className="social-icon" />
+              <span>TWITCH</span>
             </a>
           </div>
         </div>

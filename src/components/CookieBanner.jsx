@@ -51,7 +51,7 @@ const CookieBanner = () => {
     <div className="cookie-banner-overlay">
       <div className="cookie-banner">
         <div className="cookie-banner-content">
-          <h3 className="cookie-banner-title">🍪 Cookie-Einstellungen</h3>
+          <h3 className="cookie-banner-title">Cookie-Einstellungen</h3>
           <p className="cookie-banner-text">
             Wir verwenden Cookies, um Ihnen die beste Erfahrung auf unserer Website zu bieten. 
             Einige Cookies sind notwendig für den Betrieb der Website, während andere uns helfen, 

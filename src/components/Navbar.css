@@ -72,7 +72,7 @@
   border: 1px solid transparent;
   cursor: pointer;
   font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: all 0.3s ease;
@@ -108,7 +108,7 @@
 }
 
 .social-link:hover .social-icon {
-  filter: brightness(0) invert(1);
+  transform: scale(1.1);
 }
 
 .desktop-social {
@@ -124,7 +124,6 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
   transition: all 0.3s ease;
 }
 
@@ -219,7 +218,7 @@
   display: block;
   color: #fff;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding: 15px 0;
@@ -244,7 +243,7 @@
   gap: 15px;
   color: #fff;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 10px 0;
@@ -259,11 +258,10 @@
 .mobile-social-link .social-icon {
   width: 20px;
   height: 20px;
-  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
 }
 
 .mobile-social-link:hover .social-icon {
-  filter: brightness(0) invert(1);
+  transform: scale(1.1);
 }
 
 /* Responsive Design */

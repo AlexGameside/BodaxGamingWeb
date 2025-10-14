@@ -90,7 +90,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "Shroud",
     vlrLink: "https://vlr.gg/event/1234",
     createdAt: Timestamp.now()
   },
@@ -101,7 +100,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "TenZ",
     vlrLink: "https://vlr.gg/event/1235",
     createdAt: Timestamp.now()
   },
@@ -112,7 +110,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "SicK",
     vlrLink: "https://vlr.gg/event/1236",
     createdAt: Timestamp.now()
   },
@@ -123,7 +120,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "Shroud",
     vlrLink: "https://vlr.gg/event/1237",
     createdAt: Timestamp.now()
   },
@@ -134,7 +130,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "TenZ",
     vlrLink: "https://vlr.gg/event/1238",
     createdAt: Timestamp.now()
   },
@@ -145,7 +140,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "SicK",
     vlrLink: "https://vlr.gg/event/1239",
     createdAt: Timestamp.now()
   },
@@ -156,7 +150,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "Shroud",
     vlrLink: "https://vlr.gg/event/1240",
     createdAt: Timestamp.now()
   },
@@ -167,7 +160,6 @@ const exampleMatches = [
     ourScore: 0,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "TenZ",
     vlrLink: "https://vlr.gg/event/1241",
     createdAt: Timestamp.now()
   },
@@ -179,7 +171,6 @@ const exampleMatches = [
     ourScore: 2,
     opponentScore: 1,
     streamLink: "https://twitch.tv/valorant",
-    caster: "Shroud",
     vlrLink: "https://vlr.gg/event/1230",
     createdAt: Timestamp.now()
   },
@@ -190,7 +181,6 @@ const exampleMatches = [
     ourScore: 1,
     opponentScore: 2,
     streamLink: "https://twitch.tv/valorant",
-    caster: "TenZ",
     vlrLink: "https://vlr.gg/event/1229",
     createdAt: Timestamp.now()
   },
@@ -201,8 +191,57 @@ const exampleMatches = [
     ourScore: 2,
     opponentScore: 0,
     streamLink: "https://twitch.tv/valorant",
-    caster: "SicK",
     vlrLink: "https://vlr.gg/event/1228",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Storm Riders",
+    tournament: "Championship Finals",
+    date: Timestamp.fromDate(new Date('2024-12-15T19:30:00')),
+    ourScore: 2,
+    opponentScore: 1,
+    streamLink: "https://twitch.tv/valorant",
+    vlrLink: "https://vlr.gg/event/1227",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Ice Warriors",
+    tournament: "Winter Cup",
+    date: Timestamp.fromDate(new Date('2024-12-10T18:00:00')),
+    ourScore: 0,
+    opponentScore: 2,
+    streamLink: "https://twitch.tv/valorant",
+    vlrLink: "https://vlr.gg/event/1226",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Blaze Titans",
+    tournament: "Elite Series",
+    date: Timestamp.fromDate(new Date('2024-11-28T20:00:00')),
+    ourScore: 2,
+    opponentScore: 0,
+    streamLink: "https://twitch.tv/valorant",
+    vlrLink: "https://vlr.gg/event/1225",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Frost Giants",
+    tournament: "Pro League",
+    date: Timestamp.fromDate(new Date('2024-11-15T19:00:00')),
+    ourScore: 1,
+    opponentScore: 2,
+    streamLink: "https://twitch.tv/valorant",
+    vlrLink: "https://vlr.gg/event/1224",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Wind Strikers",
+    tournament: "Masters Qualifier",
+    date: Timestamp.fromDate(new Date('2024-10-30T18:30:00')),
+    ourScore: 2,
+    opponentScore: 1,
+    streamLink: "https://twitch.tv/valorant",
+    vlrLink: "https://vlr.gg/event/1223",
     createdAt: Timestamp.now()
   }
 ];
