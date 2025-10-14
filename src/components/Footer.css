@@ -96,28 +96,19 @@
 }
 
 .sponsor-logo {
-  width: 80px;
-  height: 80px;
-  background: #1a1a1a;
-  border: 2px solid rgba(229, 41, 79, 0.3);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .sponsor-logo:hover {
-  border-color: #e5294f;
   transform: scale(1.05);
 }
 
-.logo-placeholder {
-  font-size: 14px;
-  font-weight: bold;
-  color: #e5294f;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.sponsor-logo-img {
+  width: 135px;
+  height: 135px;
+  object-fit: contain;
 }
 
 .sponsor-text {
@@ -181,6 +172,13 @@
   margin: 0;
 }
 
+.legal-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
 .impressum-link {
   color: #e5294f;
   text-decoration: none;
@@ -212,14 +210,13 @@
     min-width: 120px;
   }
   
-  .legal-links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
   .footer-bottom-content {
     flex-direction: column;
     gap: 15px;
+  }
+  
+  .legal-links {
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
   }
 }

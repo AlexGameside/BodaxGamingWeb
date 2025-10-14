@@ -44,13 +44,15 @@
   gap: 12px;
 }
 
-.logo-text {
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-family: 'AstroMono', 'Courier New', monospace;
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.05);
 }
 
 .nav-menu {
@@ -109,6 +111,12 @@
   filter: brightness(0) invert(1);
 }
 
+.desktop-social {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
 .social-icon {
   font-size: 20px;
   display: flex;
@@ -124,57 +132,173 @@
   border-color: #e5294f;
 }
 
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-line.active:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger-line.active:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.active:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background: #0a0a0a;
+  border-left: 2px solid #e5294f;
+  padding: 80px 30px 30px 30px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.mobile-menu-overlay.active .mobile-menu {
+  transform: translateX(0);
+}
+
+
+.mobile-nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+}
+
+.mobile-nav-item {
+  margin-bottom: 20px;
+}
+
+.mobile-nav-link {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: #e5294f;
+  padding-left: 10px;
+}
+
+.mobile-social {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-social-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-social-link:hover {
+  color: #e5294f;
+  padding-left: 10px;
+}
+
+.mobile-social-link .social-icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.mobile-social-link:hover .social-icon {
+  filter: brightness(0) invert(1);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-container {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
     padding: 15px 20px;
   }
 
   .nav-left {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .nav-center {
-    justify-content: center;
+    display: none;
   }
 
   .nav-right {
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 15px;
   }
 
-  .nav-menu {
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .desktop-social {
+    display: none;
   }
 
-  .nav-link {
-    padding: 8px 15px;
-    font-size: 11px;
-  }
-
-  .social-link {
-    padding: 6px;
-  }
-
-  .social-icon {
-    font-size: 18px;
+  .hamburger {
+    display: flex;
   }
 }
 
 @media (max-width: 480px) {
-  .nav-menu {
-    gap: 15px;
-  }
-
-  .nav-link {
-    padding: 6px 12px;
-    font-size: 10px;
-  }
-
-  .social-icon {
-    font-size: 16px;
+  .mobile-menu {
+    width: 100%;
+    padding: 80px 20px 30px;
   }
 }

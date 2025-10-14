@@ -116,6 +116,61 @@ const exampleMatches = [
     vlrLink: "https://vlr.gg/event/1236",
     createdAt: Timestamp.now()
   },
+  {
+    opponent: "Shadow Legion",
+    tournament: "Championship Series",
+    date: Timestamp.fromDate(new Date('2025-03-01T19:30:00')),
+    ourScore: 0,
+    opponentScore: 0,
+    streamLink: "https://twitch.tv/valorant",
+    caster: "Shroud",
+    vlrLink: "https://vlr.gg/event/1237",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Neon Rush",
+    tournament: "Masters Qualifier",
+    date: Timestamp.fromDate(new Date('2025-03-05T20:00:00')),
+    ourScore: 0,
+    opponentScore: 0,
+    streamLink: "https://twitch.tv/valorant",
+    caster: "TenZ",
+    vlrLink: "https://vlr.gg/event/1238",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Quantum Force",
+    tournament: "Elite Championship",
+    date: Timestamp.fromDate(new Date('2025-03-10T18:30:00')),
+    ourScore: 0,
+    opponentScore: 0,
+    streamLink: "https://twitch.tv/valorant",
+    caster: "SicK",
+    vlrLink: "https://vlr.gg/event/1239",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Crimson Titans",
+    tournament: "Pro Circuit",
+    date: Timestamp.fromDate(new Date('2025-03-15T19:00:00')),
+    ourScore: 0,
+    opponentScore: 0,
+    streamLink: "https://twitch.tv/valorant",
+    caster: "Shroud",
+    vlrLink: "https://vlr.gg/event/1240",
+    createdAt: Timestamp.now()
+  },
+  {
+    opponent: "Void Warriors",
+    tournament: "Champions League",
+    date: Timestamp.fromDate(new Date('2025-03-20T20:30:00')),
+    ourScore: 0,
+    opponentScore: 0,
+    streamLink: "https://twitch.tv/valorant",
+    caster: "TenZ",
+    vlrLink: "https://vlr.gg/event/1241",
+    createdAt: Timestamp.now()
+  },
   // Past matches
   {
     opponent: "Thunder Gaming",

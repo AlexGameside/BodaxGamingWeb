@@ -18,6 +18,7 @@ const Admin = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('matches');
+  const [matchFilter, setMatchFilter] = useState('all'); // 'all', 'upcoming', 'recent'
   
   // Match form state
   const [matchForm, setMatchForm] = useState({
@@ -97,7 +98,23 @@ const Admin = () => {
     setMessage('');
 
     try {
+      // Debug: Log the form values
+      console.log('Form values:', { date: matchForm.date, time: matchForm.time });
+      
+      // Validate date and time
+      if (!matchForm.date || !matchForm.time) {
+        throw new Error('Date and time are required');
+      }
+      
       const dateTime = new Date(`${matchForm.date}T${matchForm.time}`);
+      
+      // Debug: Log the created date
+      console.log('Created date:', dateTime);
+      
+      // Validate the date is valid
+      if (isNaN(dateTime.getTime())) {
+        throw new Error('Invalid date or time format');
+      }
       
       if (editingMatch) {
         // Update existing match
@@ -232,6 +249,43 @@ const Admin = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Filter and sort matches based on selected filter
+  const getFilteredMatches = () => {
+    const now = new Date();
+    const filtered = matches.filter(match => {
+      const matchDate = match.date?.toDate();
+      if (!matchDate) return false;
+      
+      switch (matchFilter) {
+        case 'upcoming':
+          return matchDate > now;
+        case 'recent':
+          return matchDate <= now;
+        default:
+          return true;
+      }
+    });
+
+    // Sort by date - upcoming matches ascending (earliest first), recent matches descending (latest first)
+    return filtered.sort((a, b) => {
+      const dateA = a.date?.toDate();
+      const dateB = b.date?.toDate();
+      
+      if (!dateA || !dateB) return 0;
+      
+      if (matchFilter === 'upcoming') {
+        // For upcoming matches, sort ascending (earliest first)
+        return dateA - dateB;
+      } else if (matchFilter === 'recent') {
+        // For recent matches, sort descending (latest first)
+        return dateB - dateA;
+      } else {
+        // For all matches, sort descending (latest first)
+        return dateB - dateA;
+      }
+    });
+  };
+
   const cancelEdit = () => {
     setEditingMatch(null);
     setMatchForm({
@@ -359,8 +413,14 @@ const Admin = () => {
                   <input
                     type="date"
                     value={matchForm.date}
-                    onChange={(e) => setMatchForm({...matchForm, date: e.target.value})}
+                    onChange={(e) => {
+                      console.log('Date input changed:', e.target.value);
+                      setMatchForm({...matchForm, date: e.target.value});
+                    }}
+                    min={new Date().toISOString().split('T')[0]}
+                    max="2030-12-31"
                     required
+                    style={{ colorScheme: 'dark' }}
                   />
                 </div>
                 <div className="form-group">
@@ -368,8 +428,12 @@ const Admin = () => {
                   <input
                     type="time"
                     value={matchForm.time}
-                    onChange={(e) => setMatchForm({...matchForm, time: e.target.value})}
+                    onChange={(e) => {
+                      console.log('Time input changed:', e.target.value);
+                      setMatchForm({...matchForm, time: e.target.value});
+                    }}
                     required
+                    style={{ colorScheme: 'dark' }}
                   />
                 </div>
               </div>
@@ -435,10 +499,37 @@ const Admin = () => {
           </div>
 
           <div className="admin-list">
-            <h2>All Matches ({matches.length})</h2>
-            {matches.length > 0 ? (
+            <div className="admin-header">
+              <h2>Matches ({getFilteredMatches().length})</h2>
+              <div className="sort-indicator">
+                {matchFilter === 'upcoming' ? '↑ Sorted by date (earliest first)' :
+                 matchFilter === 'recent' ? '↓ Sorted by date (latest first)' :
+                 '↓ Sorted by date (latest first)'}
+              </div>
+              <div className="filter-tabs">
+                <button 
+                  className={`filter-tab ${matchFilter === 'all' ? 'active' : ''}`}
+                  onClick={() => setMatchFilter('all')}
+                >
+                  All ({matches.length})
+                </button>
+                <button 
+                  className={`filter-tab ${matchFilter === 'upcoming' ? 'active' : ''}`}
+                  onClick={() => setMatchFilter('upcoming')}
+                >
+                  Upcoming ({matches.filter(m => m.date?.toDate() > new Date()).length})
+                </button>
+                <button 
+                  className={`filter-tab ${matchFilter === 'recent' ? 'active' : ''}`}
+                  onClick={() => setMatchFilter('recent')}
+                >
+                  Recent ({matches.filter(m => m.date?.toDate() <= new Date()).length})
+                </button>
+              </div>
+            </div>
+            {getFilteredMatches().length > 0 ? (
               <div className="admin-items">
-                {matches.map(match => {
+                {getFilteredMatches().map(match => {
                   const isPast = match.date?.toDate() <= new Date();
                   return (
                     <div key={match.id} className="admin-item">
@@ -447,9 +538,17 @@ const Admin = () => {
                           BodaxGaming vs {match.opponent}
                         </div>
                         <div className="item-details">
-                          {match.tournament} | {match.date?.toDate().toLocaleDateString()} | 
-                          Score: {match.ourScore} - {match.opponentScore}
-                          {isPast ? ' (Completed)' : ' (Upcoming)'}
+                          <span>{match.tournament}</span>
+                          <span>|</span>
+                          <span>{match.date?.toDate().toLocaleDateString()}</span>
+                          <span className="match-time">
+                            {match.date?.toDate().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                          <span>|</span>
+                          <span>Score: {match.ourScore} - {match.opponentScore}</span>
+                          <span className="match-status">
+                            {isPast ? '(Completed)' : '(Upcoming)'}
+                          </span>
                         </div>
                       </div>
                       <div className="admin-actions">
@@ -471,7 +570,11 @@ const Admin = () => {
                 })}
               </div>
             ) : (
-              <p className="no-items">No matches added yet.</p>
+              <p className="no-items">
+                {matchFilter === 'upcoming' ? 'No upcoming matches found.' :
+                 matchFilter === 'recent' ? 'No recent matches found.' :
+                 'No matches added yet.'}
+              </p>
             )}
           </div>
         </div>

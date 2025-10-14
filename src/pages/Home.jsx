@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { format } from 'date-fns';
+import GameSlider from '../components/GameSlider';
 import './Home.css';
 
 const Home = () => {
@@ -147,50 +148,8 @@ const Home = () => {
       </section>
 
       {/* Upcoming Games Section */}
-      <section id="upcoming-games" className="upcoming-games-section">
-        <h2 className="section-title">UPCOMING GAMES</h2>
-        <div className="games-container">
-          {upcomingMatches.length > 0 ? (
-            upcomingMatches.map(match => (
-              <div key={match.id} className="game-card">
-                <div className="game-header">
-                  <div className="game-date">
-                    {format(match.date.toDate(), 'MMM d, yyyy - HH:mm')}
-                  </div>
-                  <div className="game-tournament">{match.tournament}</div>
-                </div>
-                <div className="game-teams">
-                  <div className="team-info">
-                    <div className="team-logo">BODAX</div>
-                    <div className="team-name">BODAX GAMING</div>
-                  </div>
-                  <div className="vs">VS</div>
-                  <div className="team-info">
-                    <div className="team-logo">{match.opponent?.substring(0, 3).toUpperCase()}</div>
-                    <div className="team-name">{match.opponent}</div>
-                  </div>
-                </div>
-                <div className="game-details">
-                  <div className="stream-info">
-                    <a href={match.streamLink || '#'} target="_blank" rel="noopener noreferrer" className="stream-link">
-                      WATCH STREAM
-                    </a>
-                  </div>
-                  {match.caster && (
-                    <div className="caster-info">Caster: {match.caster}</div>
-                  )}
-                  {match.vlrLink && (
-                    <a href={match.vlrLink} target="_blank" rel="noopener noreferrer" className="vlr-link">
-                      VLR.GG
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="no-data">No upcoming matches scheduled</div>
-          )}
-        </div>
+      <section id="upcoming-games">
+        <GameSlider games={upcomingMatches} />
       </section>
 
       {/* Recent Games Section */}
@@ -208,7 +167,9 @@ const Home = () => {
                 </div>
                 <div className="game-teams">
                   <div className="team-info">
-                    <div className="team-logo">BODAX</div>
+                    <div className="team-logo">
+                      <img src="/icons/logos/bodax-gaming_logo.png" alt="BODAX Gaming" className="team-logo-img" />
+                    </div>
                     <div className="team-name">BODAX GAMING</div>
                     <div className={`team-score ${match.ourScore > match.opponentScore ? 'win' : 'loss'}`}>
                       {match.ourScore}
@@ -216,7 +177,9 @@ const Home = () => {
                   </div>
                   <div className="vs">VS</div>
                   <div className="team-info">
-                    <div className="team-logo">{match.opponent?.substring(0, 3).toUpperCase()}</div>
+                    <div className="team-logo team-logo-placeholder">
+                      <span className="placeholder-text">{match.opponent?.substring(0, 3).toUpperCase()}</span>
+                    </div>
                     <div className="team-name">{match.opponent}</div>
                     <div className={`team-score ${match.opponentScore > match.ourScore ? 'win' : 'loss'}`}>
                       {match.opponentScore}
