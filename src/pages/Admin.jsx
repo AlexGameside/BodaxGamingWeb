@@ -11,7 +11,7 @@ import {
   Timestamp 
 } from 'firebase/firestore';
 import { db } from '../firebase';
-import { seedDatabase, checkDataExists } from '../seedData';
+import { seedDatabase, checkDataExists, clearAndReseedTeam } from '../seedData';
 import './Admin.css';
 
 const Admin = () => {
@@ -313,6 +313,24 @@ const Admin = () => {
     }
   };
 
+  const handleReseedTeam = async () => {
+    if (window.confirm('This will clear existing team data and add the new Bodax Gaming roster. Continue?')) {
+      setSeeding(true);
+      setMessage('');
+      
+      try {
+        await clearAndReseedTeam();
+        setMessage('Team data updated successfully with new roster!');
+        await fetchData(); // Refresh the data
+      } catch (error) {
+        console.error('Error reseeding team data:', error);
+        setMessage('Error updating team data. Please try again.');
+      } finally {
+        setSeeding(false);
+      }
+    }
+  };
+
   if (!currentUser) {
     return null;
   }
@@ -340,6 +358,9 @@ const Admin = () => {
               {seeding ? 'ADDING...' : 'ADD EXAMPLE DATA'}
             </button>
           )}
+          <button onClick={handleReseedTeam} disabled={seeding} className="reseed-btn">
+            {seeding ? 'UPDATING...' : 'UPDATE TEAM ROSTER'}
+          </button>
           <button onClick={handleLogout} className="logout-btn">
             LOGOUT
           </button>
@@ -411,7 +432,6 @@ const Admin = () => {
                       console.log('Date input changed:', e.target.value);
                       setMatchForm({...matchForm, date: e.target.value});
                     }}
-                    min={new Date().toISOString().split('T')[0]}
                     max="2030-12-31"
                     required
                     style={{ colorScheme: 'dark' }}

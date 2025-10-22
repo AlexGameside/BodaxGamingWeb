@@ -1,80 +1,86 @@
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 
-// Example players data
+// Bodax Gaming Players Data
 const examplePlayers = [
   {
-    fullName: "Alex Chen",
-    ign: "BodaxAce",
-    role: "Captain",
-    bio: "Strategic leader with 5+ years of competitive experience. Known for clutch plays and team coordination.",
-    photoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
+    fullName: "Nail",
+    ign: "Nail",
+    role: "Recon Initiator",
+    bio: "Strategic recon initiator with exceptional information gathering and team support capabilities.",
+    photoUrl: "/photos/players/nail.jpg",
     socials: {
-      twitter: "https://twitter.com/bodaxace",
-      twitch: "https://twitch.tv/bodaxace"
+      twitter: "https://twitter.com/Nailvlr"
     },
     createdAt: Timestamp.now()
   },
   {
-    fullName: "Sarah Johnson",
-    ign: "BodaxSniper",
-    role: "Entry Fragger",
-    bio: "Aggressive entry fragger with lightning-fast reflexes. Specializes in opening rounds and creating space.",
-    photoUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face",
+    fullName: "Simplex",
+    ign: "Simplex",
+    role: "Flash Initiator",
+    bio: "Aggressive flash initiator with lightning-fast reflexes. Specializes in creating openings and team coordination.",
+    photoUrl: "/photos/players/25_BodaxGaming_Headshot_Simplex.png",
     socials: {
-      twitter: "https://twitter.com/bodaxsniper",
-      twitch: "https://twitch.tv/bodaxsniper"
+      twitter: "https://twitter.com/SimplexVal"
     },
     createdAt: Timestamp.now()
   },
   {
-    fullName: "Marcus Rodriguez",
-    ign: "BodaxSupport",
-    role: "Support",
-    bio: "Reliable support player with excellent game sense. Master of utility usage and team positioning.",
-    photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
+    fullName: "InsaneDIN",
+    ign: "InsaneDIN",
+    role: "Duelist",
+    bio: "Aggressive duelist with exceptional fragging ability. Known for clutch plays and high-impact performances.",
+    photoUrl: "/photos/players/25_BodaxGaming_Dini.png",
     socials: {
-      twitter: "https://twitter.com/bodaxsupport",
-      twitch: "https://twitch.tv/bodaxsupport"
+      twitter: "https://twitter.com/InsaneDINIVL"
     },
     createdAt: Timestamp.now()
   },
   {
-    fullName: "Emma Thompson",
-    ign: "BodaxFlex",
-    role: "Flex",
-    bio: "Versatile player who adapts to any situation. Expert in multiple agent roles and map strategies.",
-    photoUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face",
+    fullName: "Euii",
+    ign: "Euii",
+    role: "Sentinel",
+    bio: "Defensive specialist with excellent game sense. Master of site control and defensive utility usage.",
+    photoUrl: "/photos/players/25_BodaxGaming_Headshot_Euii.png",
     socials: {
-      twitter: "https://twitter.com/bodaxflex",
-      twitch: "https://twitch.tv/bodaxflex"
+      twitter: "https://twitter.com/EuiiNoname"
     },
     createdAt: Timestamp.now()
   },
   {
-    fullName: "David Kim",
-    ign: "BodaxIGL",
-    role: "In-Game Leader",
-    bio: "Tactical mastermind with exceptional shot-calling abilities. Leads the team through complex strategies.",
-    photoUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face",
+    fullName: "Reos",
+    ign: "Reos",
+    role: "Smoke Controller",
+    bio: "Tactical smoke controller with exceptional map control. Expert in area denial and team positioning.",
+    photoUrl: "/photos/players/25_BodaxGaming_Headshot_Reos.png",
     socials: {
-      twitter: "https://twitter.com/bodaxigl",
-      twitch: "https://twitch.tv/bodaxigl"
+      twitter: "https://twitter.com/reosval"
     },
     createdAt: Timestamp.now()
   }
 ];
 
-// Example coaches data
+// Bodax Gaming Coaches Data
 const exampleCoaches = [
   {
-    fullName: "Coach Mike",
-    ign: "BodaxCoach",
-    role: "Coach",
-    bio: "Former professional player turned coach. Brings years of competitive experience and strategic knowledge.",
-    photoUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face",
+    fullName: "CloudTail",
+    ign: "CloudTail",
+    role: "Main Coach",
+    bio: "Experienced main coach with deep strategic knowledge and team leadership capabilities.",
+    photoUrl: "/photos/coaches/25_BodaxGaming_Headshot_Cloudtail.png",
     socials: {
-      twitter: "https://twitter.com/bodaxcoach"
+      twitter: "https://twitter.com/CloudTailVal"
+    },
+    createdAt: Timestamp.now()
+  },
+  {
+    fullName: "Sharky",
+    ign: "Sharky",
+    role: "Assistant Coach",
+    bio: "Supportive assistant coach focused on player development and tactical refinement.",
+    photoUrl: "/photos/coaches/25_BodaxGaming_Headshot_Sharky.png",
+    socials: {
+      twitter: "https://twitter.com/Sharky443"
     },
     createdAt: Timestamp.now()
   }
@@ -246,6 +252,21 @@ const exampleMatches = [
   }
 ];
 
+// Function to clear existing players data
+export const clearPlayersData = async () => {
+  try {
+    console.log('Clearing existing players data...');
+    const playersSnapshot = await getDocs(collection(db, 'players'));
+    for (const playerDoc of playersSnapshot.docs) {
+      await deleteDoc(doc(db, 'players', playerDoc.id));
+      console.log(`Deleted player: ${playerDoc.id}`);
+    }
+    console.log('Players data cleared successfully!');
+  } catch (error) {
+    console.error('Error clearing players data:', error);
+  }
+};
+
 export const seedDatabase = async () => {
   try {
     console.log('Starting to seed database...');
@@ -274,6 +295,34 @@ export const seedDatabase = async () => {
     console.log('Database seeding completed successfully!');
   } catch (error) {
     console.error('Error seeding database:', error);
+  }
+};
+
+// Function to clear and reseed with new team data
+export const clearAndReseedTeam = async () => {
+  try {
+    console.log('Starting to clear and reseed team data...');
+    
+    // Clear existing players
+    await clearPlayersData();
+    
+    // Add new players
+    console.log('Adding new players...');
+    for (const player of examplePlayers) {
+      await addDoc(collection(db, 'players'), player);
+      console.log(`Added player: ${player.fullName}`);
+    }
+    
+    // Add new coaches
+    console.log('Adding new coaches...');
+    for (const coach of exampleCoaches) {
+      await addDoc(collection(db, 'players'), coach);
+      console.log(`Added coach: ${coach.fullName}`);
+    }
+    
+    console.log('Team data cleared and reseeded successfully!');
+  } catch (error) {
+    console.error('Error clearing and reseeding team data:', error);
   }
 };
 

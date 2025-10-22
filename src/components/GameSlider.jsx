@@ -96,7 +96,12 @@ const GameSlider = ({ games }) => {
 
   if (!games || games.length === 0) {
     return (
-      <div className="game-slider-container">
+      <div className="game-slider-container" ref={sliderRef}>
+        <div className="slider-header">
+          <h2 className="slider-title">
+            <TitleTypingAnimation text="UPCOMING MATCHES" speed={5} delay={50} useViewport={true} />
+          </h2>
+        </div>
         <div className="no-games-message">
           <h3>No upcoming games scheduled</h3>
           <p>Check back soon for new matches!</p>
@@ -105,11 +110,6 @@ const GameSlider = ({ games }) => {
     );
   }
 
-  // Ensure we have games data
-  if (games.length < 1) {
-    console.warn('GameSlider: No games to display');
-    return null;
-  }
 
   return (
     <div className="game-slider-container" ref={sliderRef}>

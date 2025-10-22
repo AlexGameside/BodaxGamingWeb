@@ -133,6 +133,30 @@
   cursor: not-allowed;
 }
 
+.reseed-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid #ff9800;
+  color: #ff9800;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.reseed-btn:hover:not(:disabled) {
+  background: #ff9800;
+  color: #000;
+}
+
+.reseed-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .logout-btn {
   padding: 10px 20px;
   background: transparent;

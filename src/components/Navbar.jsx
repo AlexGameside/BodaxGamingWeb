@@ -89,11 +89,11 @@ const Navbar = () => {
             <a href="https://x.com/GamingBodax" target="_blank" rel="noopener noreferrer" className="social-link">
               <img src="/icons/social/x.svg" alt="X" className="social-icon" />
             </a>
-            <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
+            <a href="https://www.tiktok.com/@bodaxgaming" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/tiktok.svg" alt="TikTok" className="social-icon" />
             </a>
-            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/twitch.svg" alt="Twitch" className="social-icon" />
+            <a href="https://discord.gg/SCRE27SpvQ" target="_blank" rel="noopener noreferrer" className="social-link">
+              <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
             </a>
           </div>
           
@@ -134,13 +134,13 @@ const Navbar = () => {
               <img src="/icons/social/x.svg" alt="X" className="social-icon" />
               <span>X</span>
             </a>
-            <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
+            <a href="https://www.tiktok.com/@bodaxgaming" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
+              <img src="/icons/social/tiktok.svg" alt="TikTok" className="social-icon" />
+              <span>TIKTOK</span>
+            </a>
+            <a href="https://discord.gg/SCRE27SpvQ" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
               <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
               <span>DISCORD</span>
-            </a>
-            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
-              <img src="/icons/social/twitch.svg" alt="Twitch" className="social-icon" />
-              <span>TWITCH</span>
             </a>
           </div>
         </div>

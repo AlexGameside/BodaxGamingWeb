@@ -264,14 +264,28 @@
 .placeholder-portrait {
   width: 100%;
   height: 100%;
-  background: #333;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: #e5294f;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-icon {
+  width: 60px;
+  height: 60px;
+  fill: #e5294f;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.placeholder-portrait:hover .placeholder-icon {
+  opacity: 1;
+  transform: scale(1.1);
+  fill: #ff6b7a;
 }
 
 .member-info {

@@ -122,8 +122,8 @@ const Home = () => {
       }));
       
       // Separate players and coaches
-      const playersList = playersData.filter(p => p.role !== 'Coach');
-      const coachesList = playersData.filter(p => p.role === 'Coach');
+      const playersList = playersData.filter(p => !p.role.toLowerCase().includes('coach'));
+      const coachesList = playersData.filter(p => p.role.toLowerCase().includes('coach'));
       
       setPlayers(playersList);
       setCoaches(coachesList);
@@ -185,13 +185,14 @@ const Home = () => {
                     {player.photoUrl ? (
                       <img src={player.photoUrl} alt={player.fullName} />
                     ) : (
-                      <div className="placeholder-portrait">PHOTO</div>
+                      <div className="placeholder-portrait">
+                        <img src="/icons/user-solid.svg" alt="User" className="placeholder-icon" />
+                      </div>
                     )}
                   </div>
                   <div className="member-info">
                     <h3 className="member-name">{player.fullName}</h3>
-                    <p className="member-ign">{player.ign}</p>
-                    <p className="member-role">{player.role}</p>
+                    <p className="member-ign">{player.role}</p>
                     <div className="member-socials">
                       {player.socials?.twitter && (
                         <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>
@@ -214,13 +215,14 @@ const Home = () => {
                     {coach.photoUrl ? (
                       <img src={coach.photoUrl} alt={coach.fullName} />
                     ) : (
-                      <div className="placeholder-portrait">PHOTO</div>
+                      <div className="placeholder-portrait">
+                        <img src="/icons/user-solid.svg" alt="User" className="placeholder-icon" />
+                      </div>
                     )}
                   </div>
                   <div className="member-info">
                     <h3 className="member-name">{coach.fullName}</h3>
-                    <p className="member-ign">{coach.ign}</p>
-                    <p className="member-role">{coach.role}</p>
+                    <p className="member-ign">{coach.role}</p>
                     <div className="member-socials">
                       {coach.socials?.twitter && (
                         <a href={coach.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>

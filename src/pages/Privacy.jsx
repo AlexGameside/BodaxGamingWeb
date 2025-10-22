@@ -55,12 +55,11 @@ const Privacy = () => {
             <h3>Hinweis zur verantwortlichen Stelle</h3>
             <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
             <p><strong>Bodax Gaming</strong><br />
-            Max Bode<br />
-            Musterstraße 123<br />
-            12345 Musterstadt<br />
+            Alexander Kechagias<br />
+            Comeniusstr. 3<br />
+            81667 München<br />
             Deutschland</p>
-            <p>Telefon: +49 (0) 123 456789<br />
-            E-Mail: info@bodaxgaming.com</p>
+            <p>E-Mail: info@bodax-gaming.de</p>
             <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
           </div>
         </section>

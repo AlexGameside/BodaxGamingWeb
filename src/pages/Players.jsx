@@ -50,14 +50,13 @@ const Players = () => {
                   <img src={player.photoURL} alt={player.name} />
                 ) : (
                   <div className="avatar-placeholder">
-                    {player.name.charAt(0).toUpperCase()}
+                    <img src="/icons/user-solid.svg" alt="User" className="placeholder-icon" />
                   </div>
                 )}
               </div>
               <div className="player-info">
                 <h3 className="player-name">{player.name}</h3>
-                <p className="player-ign">IGN: {player.ign}</p>
-                <p className="player-role">{player.role}</p>
+                <p className="player-ign">{player.role}</p>
                 {player.bio && <p className="player-bio">{player.bio}</p>}
               </div>
             </div>

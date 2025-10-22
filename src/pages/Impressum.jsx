@@ -10,9 +10,9 @@ const Impressum = () => {
           <h2 className="section-title">Angaben gemäß § 5 TMG</h2>
           <div className="section-content">
             <p><strong>Bodax Gaming</strong></p>
-            <p>Max Bode</p>
-            <p>Musterstraße 123</p>
-            <p>12345 Musterstadt</p>
+            <p>Alexander Kechagias</p>
+            <p>Comeniusstr. 3</p>
+            <p>81667 München</p>
             <p>Deutschland</p>
           </div>
         </section>
@@ -20,25 +20,16 @@ const Impressum = () => {
         <section className="impressum-section">
           <h2 className="section-title">Kontakt</h2>
           <div className="section-content">
-            <p>Telefon: +49 (0) 123 456789</p>
-            <p>E-Mail: info@bodaxgaming.com</p>
-          </div>
-        </section>
-
-        <section className="impressum-section">
-          <h2 className="section-title">Umsatzsteuer-ID</h2>
-          <div className="section-content">
-            <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:</p>
-            <p>DE123456789</p>
+            <p>E-Mail: info@bodax-gaming.de</p>
           </div>
         </section>
 
         <section className="impressum-section">
           <h2 className="section-title">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
           <div className="section-content">
-            <p>Max Bode</p>
-            <p>Musterstraße 123</p>
-            <p>12345 Musterstadt</p>
+            <p>Alexander Kechagias</p>
+            <p>Comeniusstr. 3</p>
+            <p>81667 München</p>
           </div>
         </section>
 
