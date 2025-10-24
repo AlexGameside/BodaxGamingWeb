@@ -1,0 +1,113 @@
+/* Team Vantage Page Styles - Blue Theme */
+.team-vantage {
+  --team-color: #0096ff;
+  --team-color-hover: #00b4ff;
+  --team-color-dark: #0066cc;
+}
+
+.team-vantage .team-tagline {
+  color: var(--team-color);
+}
+
+.team-vantage .social-button {
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .social-button:hover {
+  border-color: var(--team-color);
+  background: rgba(0, 150, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 150, 255, 0.4);
+}
+
+.team-vantage .upcoming-match-card {
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .upcoming-match-card:hover {
+  border-color: var(--team-color);
+  box-shadow: 0 12px 40px rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .upcoming-match-title {
+  color: var(--team-color);
+}
+
+.team-vantage .match-tournament {
+  color: var(--team-color);
+}
+
+.team-vantage .section-title {
+  color: var(--team-color);
+}
+
+.team-vantage .team-section-header {
+  border-bottom-color: rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .tab-button {
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .tab-button:hover {
+  border-color: var(--team-color);
+  color: var(--team-color);
+  box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4);
+}
+
+.team-vantage .tab-button.active {
+  background: var(--team-color);
+  border-color: var(--team-color);
+  color: #000;
+}
+
+.team-vantage .team-member-card {
+  border-color: rgba(0, 150, 255, 0.2);
+}
+
+.team-vantage .team-member-card:hover {
+  border-color: var(--team-color);
+  box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .member-portrait {
+  border-color: rgba(0, 150, 255, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 150, 255, 0.2);
+}
+
+.team-vantage .member-portrait::after {
+  background: linear-gradient(45deg, #0096ff, #00b4ff, #0096ff);
+}
+
+.team-vantage .member-portrait:hover {
+  border-color: var(--team-color);
+  box-shadow: 0 12px 32px rgba(0, 150, 255, 0.4);
+}
+
+.team-vantage .placeholder-portrait {
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .placeholder-icon {
+  fill: var(--team-color);
+}
+
+.team-vantage .placeholder-portrait:hover .placeholder-icon {
+  fill: var(--team-color-hover);
+}
+
+.team-vantage .member-ign {
+  color: var(--team-color);
+}
+
+.team-vantage .member-socials a {
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.team-vantage .member-socials a:hover {
+  background: var(--team-color);
+  border-color: var(--team-color);
+}
+
+.team-vantage .loading {
+  color: var(--team-color);
+}

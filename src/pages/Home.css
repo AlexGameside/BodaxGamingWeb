@@ -482,6 +482,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 20px;
+  align-items: stretch;
 }
 
 .game-card {
@@ -508,16 +509,20 @@
   padding: 20px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 300px;
 }
 
 .recent-games-section .victory-card {
-  border-color: rgba(76, 175, 80, 0.3);
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(26, 26, 26, 1) 100%);
+  border-color: rgba(76, 175, 80, 0.5);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(26, 26, 26, 1) 100%);
 }
 
 .recent-games-section .defeat-card {
-  border-color: rgba(244, 67, 54, 0.3);
-  background: linear-gradient(135deg, rgba(244, 67, 54, 0.05) 0%, rgba(26, 26, 26, 1) 100%);
+  border-color: rgba(244, 67, 54, 0.5);
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.15) 0%, rgba(26, 26, 26, 1) 100%);
 }
 
 .game-card:hover {
@@ -527,19 +532,24 @@
 
 .recent-games-section .victory-card:hover {
   border-color: #4caf50;
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(26, 26, 26, 1) 100%);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.25) 0%, rgba(26, 26, 26, 1) 100%);
+  box-shadow: 
+    0 0 20px rgba(76, 175, 80, 0.4),
+    0 0 40px rgba(76, 175, 80, 0.2),
+    0 0 60px rgba(76, 175, 80, 0.1),
+    0 15px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px) scale(1.03);
 }
 
 .recent-games-section .defeat-card:hover {
   border-color: #f44336;
-  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1) 0%, rgba(26, 26, 26, 1) 100%);
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.25) 0%, rgba(26, 26, 26, 1) 100%);
 }
 
 .game-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(229, 41, 79, 0.2);
@@ -549,6 +559,17 @@
 .recent-games-section .game-header {
   margin-bottom: 15px;
   padding-bottom: 12px;
+}
+
+.game-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.game-header-right {
+  display: flex;
+  align-items: flex-start;
 }
 
 .game-date {
@@ -580,12 +601,31 @@
   background: linear-gradient(135deg, #4caf50, #45a049);
   color: #fff;
   border: 1px solid #4caf50;
+  transition: all 0.3s ease;
+}
+
+.game-result-badge.victory:hover {
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+  transform: scale(1.05);
 }
 
 .game-result-badge.defeat {
   background: linear-gradient(135deg, #f44336, #d32f2f);
   color: #fff;
   border: 1px solid #f44336;
+}
+
+.game-status {
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #e5294f, #c41e3a);
+  color: #fff;
+  border: 1px solid #e5294f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .game-teams {
@@ -794,6 +834,12 @@
   background: linear-gradient(135deg, #4caf50, #45a049);
   color: #fff;
   border: 2px solid #4caf50;
+  transition: all 0.3s ease;
+}
+
+.recent-games-section .result.victory:hover {
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+  transform: scale(1.05);
 }
 
 .recent-games-section .result.defeat {
@@ -842,12 +888,14 @@
 .recent-games-section .game-actions {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: auto;
+  padding-top: 15px;
 }
 
 .recent-games-section .vlr-link {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 8px 12px;
   background: transparent;
@@ -860,6 +908,11 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+}
+
+.recent-games-section .vlr-link svg {
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .recent-games-section .vlr-link:hover {
@@ -1098,5 +1151,273 @@
   
   .filter-select {
     width: 100%;
+  }
+}
+
+/* Multi-Team Homepage Styles */
+.view-more-btn {
+  color: #e5294f;
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  white-space: nowrap;
+}
+
+.view-more-btn:hover {
+  background: #e5294f;
+  color: #000;
+  border-color: #e5294f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 41, 79, 0.4);
+}
+
+/* Team Vantage Specific Colors */
+.vantage-team-section .team-member-card {
+  border-color: rgba(0, 150, 255, 0.2);
+}
+
+.vantage-team-section .team-member-card:hover {
+  border-color: #0096ff;
+  box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3);
+}
+
+.vantage-team-section .member-portrait {
+  border-color: rgba(0, 150, 255, 0.4);
+}
+
+.vantage-team-section .member-portrait:hover {
+  border-color: #0096ff;
+}
+
+.vantage-team-section .member-ign {
+  color: #0096ff;
+}
+
+.vantage-team-section .team-section-header {
+  border-bottom-color: rgba(0, 150, 255, 0.3);
+}
+
+.vantage-title {
+  color: #0096ff;
+}
+
+.vantage-btn {
+  color: #0096ff;
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.vantage-btn:hover {
+  background: #0096ff;
+  border-color: #0096ff;
+  box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4);
+}
+
+/* Game Changers Specific Colors */
+.game-changers-section .team-member-card {
+  border-color: rgba(255, 165, 0, 0.2);
+}
+
+.game-changers-section .team-member-card:hover {
+  border-color: #ffa500;
+  box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3);
+}
+
+.game-changers-section .member-portrait {
+  border-color: rgba(255, 165, 0, 0.4);
+}
+
+.game-changers-section .member-portrait:hover {
+  border-color: #ffa500;
+}
+
+.game-changers-section .member-ign {
+  color: #ffa500;
+}
+
+.game-changers-section .team-section-header {
+  border-bottom-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers-title {
+  color: #ffa500;
+}
+
+.game-changers-btn {
+  color: #ffa500;
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers-btn:hover {
+  background: #ffa500;
+  border-color: #ffa500;
+  color: #000;
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+}
+
+/* Streamers Section Homepage */
+.streamers-section-home {
+  padding: 80px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in-out 0.2s both;
+}
+
+.streamers-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(145, 70, 255, 0.3);
+}
+
+.streamers-title {
+  color: #9146ff;
+}
+
+.streamers-btn {
+  color: #9146ff;
+  border-color: rgba(145, 70, 255, 0.3);
+}
+
+.streamers-btn:hover {
+  background: #9146ff;
+  border-color: #9146ff;
+  box-shadow: 0 5px 15px rgba(145, 70, 255, 0.4);
+}
+
+.streamers-grid-home {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.streamer-card-home {
+  background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+  border: 2px solid rgba(145, 70, 255, 0.2);
+  padding: 25px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  animation: scaleIn 0.6s ease-out;
+  animation-fill-mode: both;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.streamer-card-home:nth-child(1) { animation-delay: 0.1s; }
+.streamer-card-home:nth-child(2) { animation-delay: 0.2s; }
+.streamer-card-home:nth-child(3) { animation-delay: 0.3s; }
+.streamer-card-home:nth-child(4) { animation-delay: 0.4s; }
+.streamer-card-home:nth-child(5) { animation-delay: 0.5s; }
+.streamer-card-home:nth-child(6) { animation-delay: 0.6s; }
+
+.streamer-card-home:hover {
+  border-color: #9146ff;
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(145, 70, 255, 0.3);
+}
+
+.streamer-portrait-home {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  border: 3px solid rgba(145, 70, 255, 0.4);
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(145, 70, 255, 0.2);
+}
+
+.streamer-portrait-home img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.3s ease;
+}
+
+.streamer-portrait-home:hover img {
+  transform: scale(1.1);
+}
+
+.streamer-placeholder-portrait {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 2px solid rgba(145, 70, 255, 0.3);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.streamer-placeholder-icon {
+  width: 50px;
+  height: 50px;
+  fill: #9146ff;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.streamer-info-home {
+  position: relative;
+}
+
+.streamer-name-home {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.streamer-title-home {
+  font-size: 12px;
+  color: #9146ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+/* Upcoming Games Section Home */
+.upcoming-games-section-home {
+  padding: 80px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in-out 0.2s both;
+}
+
+/* Responsive Adjustments for Multi-Team Layout */
+@media (max-width: 768px) {
+  .streamers-section-header,
+  .team-section-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .view-more-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .streamers-grid-home {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }

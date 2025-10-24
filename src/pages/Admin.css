@@ -569,3 +569,94 @@
     font-size: 20px;
   }
 }
+
+/* File Upload Styles */
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input:hover {
+  border-color: rgba(229, 41, 79, 0.5);
+}
+
+.file-input:focus {
+  outline: none;
+  border-color: #e5294f;
+  box-shadow: 0 0 10px rgba(229, 41, 79, 0.3);
+}
+
+.file-preview,
+.url-preview {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(229, 41, 79, 0.05);
+  border: 1px solid rgba(229, 41, 79, 0.2);
+  border-radius: 8px;
+}
+
+.file-info,
+.url-info {
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.logo-preview {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 6px;
+  border: 1px solid rgba(229, 41, 79, 0.3);
+  object-fit: contain;
+}
+
+.url-fallback {
+  font-size: 12px;
+  color: #f44336;
+  font-style: italic;
+}
+
+/* Placeholder Options */
+.placeholder-options {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(229, 41, 79, 0.05);
+  border: 1px solid rgba(229, 41, 79, 0.2);
+  border-radius: 8px;
+}
+
+.placeholder-label {
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.placeholder-btn {
+  background: transparent;
+  border: 1px solid rgba(229, 41, 79, 0.3);
+  color: #e5294f;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.placeholder-btn:hover {
+  background: rgba(229, 41, 79, 0.1);
+  border-color: #e5294f;
+  transform: translateY(-1px);
+}

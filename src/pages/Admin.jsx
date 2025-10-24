@@ -29,8 +29,78 @@ const Admin = () => {
     ourScore: '',
     opponentScore: '',
     streamLink: '',
-    vlrLink: ''
+    vlrLink: '',
+    opponentLogo: ''
   });
+
+  // File upload state
+  const [opponentLogoFile, setOpponentLogoFile] = useState(null);
+  const [playerPhotoFile, setPlayerPhotoFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
+  // File upload handler for opponent logos
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setMessage('Please select a valid image file.');
+        return;
+      }
+      
+      // Validate file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        setMessage('File size must be less than 2MB.');
+        return;
+      }
+      
+      setOpponentLogoFile(file);
+      
+      // Create a preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setMatchForm(prev => ({
+        ...prev,
+        opponentLogo: previewUrl
+      }));
+    }
+  };
+
+  // File upload handler for player photos
+  const handlePlayerPhotoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setMessage('Please select a valid image file.');
+        return;
+      }
+      
+      // Validate file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        setMessage('File size must be less than 2MB.');
+        return;
+      }
+      
+      setPlayerPhotoFile(file);
+      
+      // Create a preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setPlayerForm(prev => ({
+        ...prev,
+        photoUrl: previewUrl
+      }));
+    }
+  };
+
+  // Convert file to base64 for storage
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
 
   // Player form state
   const [playerForm, setPlayerForm] = useState({
@@ -94,6 +164,7 @@ const Admin = () => {
   const handleMatchSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setUploading(true);
     setMessage('');
 
     try {
@@ -114,6 +185,13 @@ const Admin = () => {
       if (isNaN(dateTime.getTime())) {
         throw new Error('Invalid date or time format');
       }
+
+      // Handle file upload if a file was selected
+      let opponentLogoUrl = matchForm.opponentLogo;
+      if (opponentLogoFile) {
+        const base64Image = await fileToBase64(opponentLogoFile);
+        opponentLogoUrl = base64Image;
+      }
       
       if (editingMatch) {
         // Update existing match
@@ -125,6 +203,7 @@ const Admin = () => {
           opponentScore: parseInt(matchForm.opponentScore) || 0,
           streamLink: matchForm.streamLink,
           vlrLink: matchForm.vlrLink,
+          opponentLogo: opponentLogoUrl,
         });
         setMessage('Match updated successfully!');
         setEditingMatch(null);
@@ -138,6 +217,7 @@ const Admin = () => {
           opponentScore: parseInt(matchForm.opponentScore) || 0,
           streamLink: matchForm.streamLink,
           vlrLink: matchForm.vlrLink,
+          opponentLogo: opponentLogoUrl,
           createdAt: Timestamp.now()
         });
         setMessage('Match added successfully!');
@@ -151,8 +231,10 @@ const Admin = () => {
         ourScore: '',
         opponentScore: '',
         streamLink: '',
-        vlrLink: ''
+        vlrLink: '',
+        opponentLogo: ''
       });
+      setOpponentLogoFile(null);
       
       await fetchMatches();
     } catch (error) {
@@ -160,21 +242,30 @@ const Admin = () => {
       setMessage('Error saving match. Please try again.');
     } finally {
       setLoading(false);
+      setUploading(false);
     }
   };
 
   const handlePlayerSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setUploading(true);
     setMessage('');
 
     try {
+      // Handle file upload if a file was selected
+      let photoUrl = playerForm.photoUrl;
+      if (playerPhotoFile) {
+        const base64Image = await fileToBase64(playerPhotoFile);
+        photoUrl = base64Image;
+      }
+
       await addDoc(collection(db, 'players'), {
         fullName: playerForm.fullName,
         ign: playerForm.ign,
         role: playerForm.role,
         bio: playerForm.bio,
-        photoUrl: playerForm.photoUrl,
+        photoUrl: photoUrl,
         socials: {
           twitter: playerForm.twitter,
           twitch: playerForm.twitch
@@ -192,6 +283,7 @@ const Admin = () => {
         twitter: '',
         twitch: ''
       });
+      setPlayerPhotoFile(null);
       
       await fetchPlayers();
     } catch (error) {
@@ -199,6 +291,7 @@ const Admin = () => {
       setMessage('Error adding player. Please try again.');
     } finally {
       setLoading(false);
+      setUploading(false);
     }
   };
 
@@ -239,8 +332,10 @@ const Admin = () => {
       ourScore: match.ourScore.toString(),
       opponentScore: match.opponentScore.toString(),
       streamLink: match.streamLink || '',
-      vlrLink: match.vlrLink || ''
+      vlrLink: match.vlrLink || '',
+      opponentLogo: match.opponentLogo || ''
     });
+    setOpponentLogoFile(null); // Clear any existing file upload
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -291,8 +386,10 @@ const Admin = () => {
       ourScore: '',
       opponentScore: '',
       streamLink: '',
-      vlrLink: ''
+      vlrLink: '',
+      opponentLogo: ''
     });
+    setOpponentLogoFile(null);
   };
 
   const handleSeedData = async () => {
@@ -499,8 +596,45 @@ const Admin = () => {
                 />
               </div>
 
-              <button type="submit" disabled={loading} className="submit-btn">
-                {loading ? 'Saving...' : editingMatch ? 'Update Match' : 'Add Match'}
+              <div className="form-group">
+                <label>Opponent Logo (optional)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="file-input"
+                />
+                {opponentLogoFile && (
+                  <div className="file-preview">
+                    <p className="file-info">
+                      Selected: {opponentLogoFile.name} ({(opponentLogoFile.size / 1024).toFixed(1)} KB)
+                    </p>
+                    <img 
+                      src={matchForm.opponentLogo} 
+                      alt="Logo preview" 
+                      className="logo-preview"
+                    />
+                  </div>
+                )}
+                {!opponentLogoFile && matchForm.opponentLogo && !matchForm.opponentLogo.startsWith('data:') && (
+                  <div className="url-preview">
+                    <p className="url-info">Current logo URL:</p>
+                    <img 
+                      src={matchForm.opponentLogo} 
+                      alt="Current logo" 
+                      className="logo-preview"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                    <p className="url-fallback" style={{display: 'none'}}>Unable to load image from URL</p>
+                  </div>
+                )}
+              </div>
+
+              <button type="submit" disabled={loading || uploading} className="submit-btn">
+                {uploading ? 'Uploading...' : loading ? 'Saving...' : editingMatch ? 'Update Match' : 'Add Match'}
               </button>
             </form>
           </div>
@@ -637,13 +771,53 @@ const Admin = () => {
               </div>
 
               <div className="form-group">
-                <label>Photo URL (optional)</label>
+                <label>Player Photo (optional)</label>
                 <input
-                  type="url"
-                  value={playerForm.photoUrl}
-                  onChange={(e) => setPlayerForm({...playerForm, photoUrl: e.target.value})}
-                  placeholder="https://example.com/photo.jpg"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePlayerPhotoUpload}
+                  className="file-input"
                 />
+                {playerPhotoFile && (
+                  <div className="file-preview">
+                    <p className="file-info">
+                      Selected: {playerPhotoFile.name} ({(playerPhotoFile.size / 1024).toFixed(1)} KB)
+                    </p>
+                    <img 
+                      src={playerForm.photoUrl} 
+                      alt="Photo preview" 
+                      className="logo-preview"
+                    />
+                  </div>
+                )}
+                {!playerPhotoFile && playerForm.photoUrl && !playerForm.photoUrl.startsWith('data:') && (
+                  <div className="url-preview">
+                    <p className="url-info">Current photo URL:</p>
+                    <img 
+                      src={playerForm.photoUrl} 
+                      alt="Current photo" 
+                      className="logo-preview"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                    <p className="url-fallback" style={{display: 'none'}}>Unable to load image from URL</p>
+                  </div>
+                )}
+                <div className="placeholder-options">
+                  <p className="placeholder-label">Or use placeholder:</p>
+                  <button
+                    type="button"
+                    className="placeholder-btn"
+                    onClick={() => {
+                      setPlayerForm(prev => ({ ...prev, photoUrl: '' }));
+                      setPlayerPhotoFile(null);
+                    }}
+                  >
+                    Use Default Icon
+                  </button>
+                </div>
               </div>
 
               <div className="form-row">
@@ -667,8 +841,8 @@ const Admin = () => {
                 </div>
               </div>
 
-              <button type="submit" disabled={loading} className="submit-btn">
-                {loading ? 'Adding...' : 'Add Player'}
+              <button type="submit" disabled={loading || uploading} className="submit-btn">
+                {uploading ? 'Uploading...' : loading ? 'Adding...' : 'Add Player'}
               </button>
             </form>
           </div>

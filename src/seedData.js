@@ -8,7 +8,7 @@ const examplePlayers = [
     ign: "Nail",
     role: "Recon Initiator",
     bio: "Strategic recon initiator with exceptional information gathering and team support capabilities.",
-    photoUrl: "/photos/players/nail.jpg",
+    photoUrl: "",
     socials: {
       twitter: "https://twitter.com/Nailvlr"
     },

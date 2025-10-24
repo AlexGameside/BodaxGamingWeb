@@ -11,6 +11,11 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Impressum from './pages/Impressum';
 import Privacy from './pages/Privacy';
+import MainTeam from './pages/MainTeam';
+import TeamVantage from './pages/TeamVantage';
+import GameChangers from './pages/GameChangers';
+import Streamers from './pages/Streamers';
+import GameSchedule from './pages/GameSchedule';
 import './App.css';
 
 function App() {
@@ -29,6 +34,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/impressum" element={<Impressum />} />
                 <Route path="/privacy" element={<Privacy />} />
+                <Route path="/teams/main" element={<MainTeam />} />
+                <Route path="/teams/vantage" element={<TeamVantage />} />
+                <Route path="/teams/game-changers" element={<GameChangers />} />
+                <Route path="/streamers" element={<Streamers />} />
+                <Route path="/game-schedule" element={<GameSchedule />} />
               </Routes>
             </main>
             <Footer />

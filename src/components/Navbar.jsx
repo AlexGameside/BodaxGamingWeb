@@ -7,6 +7,7 @@ const Navbar = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isTeamsDropdownOpen, setIsTeamsDropdownOpen] = useState(false);
 
   const handleAnchorClick = (e, anchorId) => {
     e.preventDefault();
@@ -33,6 +34,25 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleTeamsDropdown = () => {
+    setIsTeamsDropdownOpen(!isTeamsDropdownOpen);
+  };
+
+  const handleTeamClick = (teamType) => {
+    setIsTeamsDropdownOpen(false);
+    setIsMobileMenuOpen(false);
+    // Navigate to specific team page
+    const teamRoutes = {
+      'main': '/teams/main',
+      'vantage': '/teams/vantage',
+      'game-changers': '/teams/game-changers'
+    };
+    
+    if (teamRoutes[teamType]) {
+      window.location.href = teamRoutes[teamType];
+    }
   };
 
   // Handle direct navigation to anchors (e.g., /#team)
@@ -66,14 +86,46 @@ const Navbar = () => {
         {/* Center Column - Navigation Links (Desktop) */}
         <div className="nav-center desktop-menu">
           <ul className="nav-menu">
-            <li className="nav-item">
-              <a href="#team" className="nav-link" onClick={(e) => handleAnchorClick(e, 'team')}>TEAM</a>
+            <li className="nav-item teams-dropdown">
+              <button 
+                className="nav-link teams-dropdown-btn" 
+                onClick={toggleTeamsDropdown}
+                onMouseEnter={() => setIsTeamsDropdownOpen(true)}
+              >
+                TEAMS
+                <span className="dropdown-arrow">▼</span>
+              </button>
+              {isTeamsDropdownOpen && (
+                <div 
+                  className="teams-dropdown-menu"
+                  onMouseLeave={() => setIsTeamsDropdownOpen(false)}
+                >
+                  <button 
+                    className="dropdown-item" 
+                    onClick={() => handleTeamClick('main')}
+                  >
+                    Main Team
+                  </button>
+                  <button 
+                    className="dropdown-item" 
+                    onClick={() => handleTeamClick('vantage')}
+                  >
+                    Team Vantage
+                  </button>
+                  <button 
+                    className="dropdown-item" 
+                    onClick={() => handleTeamClick('game-changers')}
+                  >
+                    Game Changers
+                  </button>
+                </div>
+              )}
             </li>
             <li className="nav-item">
-              <a href="#upcoming-games" className="nav-link" onClick={(e) => handleAnchorClick(e, 'upcoming-games')}>UPCOMING GAMES</a>
+              <Link to="/game-schedule" className="nav-link">GAME SCHEDULE</Link>
             </li>
             <li className="nav-item">
-              <a href="#recent-games" className="nav-link" onClick={(e) => handleAnchorClick(e, 'recent-games')}>PAST GAMES</a>
+              <Link to="/streamers" className="nav-link">STREAMERS</Link>
             </li>
             {currentUser && (
               <li className="nav-item">
@@ -114,13 +166,41 @@ const Navbar = () => {
               <Link to="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>HOME</Link>
             </li>
             <li className="mobile-nav-item">
-              <a href="#team" className="mobile-nav-link" onClick={(e) => handleAnchorClick(e, 'team')}>TEAM</a>
+              <button 
+                className="mobile-nav-link mobile-teams-btn" 
+                onClick={toggleTeamsDropdown}
+              >
+                TEAMS
+                <span className="mobile-dropdown-arrow">▼</span>
+              </button>
+              {isTeamsDropdownOpen && (
+                <div className="mobile-teams-dropdown">
+                  <button 
+                    className="mobile-dropdown-item" 
+                    onClick={() => handleTeamClick('main')}
+                  >
+                    Main Team
+                  </button>
+                  <button 
+                    className="mobile-dropdown-item" 
+                    onClick={() => handleTeamClick('vantage')}
+                  >
+                    Team Vantage
+                  </button>
+                  <button 
+                    className="mobile-dropdown-item" 
+                    onClick={() => handleTeamClick('game-changers')}
+                  >
+                    Game Changers
+                  </button>
+                </div>
+              )}
             </li>
             <li className="mobile-nav-item">
-              <a href="#upcoming-games" className="mobile-nav-link" onClick={(e) => handleAnchorClick(e, 'upcoming-games')}>UPCOMING GAMES</a>
+              <Link to="/game-schedule" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>GAME SCHEDULE</Link>
             </li>
             <li className="mobile-nav-item">
-              <a href="#recent-games" className="mobile-nav-link" onClick={(e) => handleAnchorClick(e, 'recent-games')}>PAST GAMES</a>
+              <Link to="/streamers" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>STREAMERS</Link>
             </li>
             {currentUser && (
               <li className="mobile-nav-item">

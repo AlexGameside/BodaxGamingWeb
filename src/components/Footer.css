@@ -52,28 +52,26 @@
 .footer .social-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
   color: #fff;
   text-decoration: none;
-  padding: 12px;
+  padding: 0;
   border: none;
-  border-radius: 6px;
+  background: transparent;
   transition: all 0.3s ease;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   width: 44px;
   height: 44px;
-  justify-content: center;
   box-sizing: border-box;
 }
 
 .footer .social-link:hover {
   color: #e5294f;
+  background: transparent;
+  transform: scale(1.1);
 }
 
 .footer .social-link:hover .social-icon {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .social-icon {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 809.45 259.8">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: AstroMono-Bold, 'Astro Mono';
+        font-size: 142.64px;
+        font-weight: 700;
+        letter-spacing: .02em;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #ececec;
+      }
+
+      .cls-3 {
+        fill: #e5294e;
+      }
+    </style>
+  </defs>
+  <g id="twitter-banner">
+    <g>
+      <path class="cls-2" d="M39.96,245.07H4c-2.36,0-4.2-2.03-3.98-4.37L29.45,4.27c.19-2.06,1.92-3.63,3.98-3.63h35.96c2.36,0,4.2,2.03,3.98,4.37l-29.43,236.43c-.19,2.06-1.92,3.63-3.98,3.63Z"/>
+      <path class="cls-3" d="M106.79,90.84l-26.08,20.54c-1.66,1.31-1.94,3.71-.64,5.37l35.34,44.87c.7.89,1.76,1.41,2.88,1.44h10.19c.86,0,1.23,1.08.56,1.61l-60.32,47.5c-1.66,1.31-1.94,3.71-.64,5.37l20.54,26.08c1.31,1.66,3.71,1.94,5.37.64l82.47-64.93c1.66-1.31,1.94-3.71.64-5.37l-64.94-82.47c-1.31-1.66-3.71-1.94-5.37-.64Z"/>
+    </g>
+    <text class="cls-1" transform="translate(277.05 91.29)"><tspan x="0" y="0">bodax</tspan></text>
+    <text class="cls-1" transform="translate(277.05 222.29)"><tspan x="0" y="0">gaming</tspan></text>
+  </g>
+</svg>

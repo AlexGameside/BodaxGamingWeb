@@ -199,10 +199,21 @@
 .game-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 15px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(229, 41, 79, 0.2);
+}
+
+.game-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.game-header-right {
+  display: flex;
+  align-items: flex-start;
 }
 
 .game-date {
@@ -216,10 +227,21 @@
 .game-tournament {
   font-size: 12px;
   color: #ccc;
-  background: rgba(229, 41, 79, 0.1);
-  padding: 4px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(229, 41, 79, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.game-status {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #e5294f, #c41e3a);
+  color: #fff;
+  border: 1px solid #e5294f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .game-teams {
@@ -303,7 +325,8 @@
 .vlr-link {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 6px;
   padding: 8px 12px;
   background: transparent;
   border: 1px solid rgba(229, 41, 79, 0.3);
@@ -318,7 +341,12 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  justify-content: center;
+}
+
+.stream-link svg,
+.vlr-link svg {
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .stream-link::before,

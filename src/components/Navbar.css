@@ -86,11 +86,86 @@
   border-color: rgba(229, 41, 79, 0.3);
 }
 
+/* Teams Dropdown Styles */
+.teams-dropdown {
+  position: relative;
+}
+
+.teams-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.teams-dropdown-btn:hover {
+  color: #e5294f;
+  border-color: rgba(229, 41, 79, 0.3);
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.teams-dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.teams-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #0a0a0a;
+  border: 1px solid rgba(229, 41, 79, 0.3);
+  border-top: none;
+  min-width: 200px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-align: left;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: rgba(229, 41, 79, 0.1);
+  color: #e5294f;
+  padding-left: 30px;
+}
+
 .social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 0;
   border: none;
   background: transparent;
   transition: all 0.3s ease;
@@ -98,6 +173,7 @@
   width: 44px;
   height: 44px;
   box-sizing: border-box;
+  box-shadow: none;
 }
 
 .social-link:hover {
@@ -105,10 +181,11 @@
   background: transparent;
   transform: scale(1.1);
   text-decoration: none;
+  box-shadow: none;
 }
 
 .social-link:hover .social-icon {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .desktop-social {
@@ -229,6 +306,70 @@
 .mobile-nav-link:hover {
   color: #e5294f;
   padding-left: 10px;
+}
+
+/* Mobile Teams Dropdown Styles */
+.mobile-teams-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mobile-teams-btn:hover {
+  color: #e5294f;
+  padding-left: 10px;
+}
+
+.mobile-dropdown-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.mobile-teams-dropdown {
+  background: rgba(229, 41, 79, 0.05);
+  border-left: 3px solid #e5294f;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mobile-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-align: left;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-dropdown-item:hover {
+  background: rgba(229, 41, 79, 0.1);
+  color: #e5294f;
+  padding-left: 30px;
 }
 
 .mobile-social {

@@ -1,0 +1,113 @@
+/* Game Changers Page Styles - Orange Theme */
+.game-changers {
+  --team-color: #ffa500;
+  --team-color-hover: #ffb84d;
+  --team-color-dark: #ff8c00;
+}
+
+.game-changers .team-tagline {
+  color: var(--team-color);
+}
+
+.game-changers .social-button {
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .social-button:hover {
+  border-color: var(--team-color);
+  background: rgba(255, 165, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(255, 165, 0, 0.4);
+}
+
+.game-changers .upcoming-match-card {
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .upcoming-match-card:hover {
+  border-color: var(--team-color);
+  box-shadow: 0 12px 40px rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .upcoming-match-title {
+  color: var(--team-color);
+}
+
+.game-changers .match-tournament {
+  color: var(--team-color);
+}
+
+.game-changers .section-title {
+  color: var(--team-color);
+}
+
+.game-changers .team-section-header {
+  border-bottom-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .tab-button {
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .tab-button:hover {
+  border-color: var(--team-color);
+  color: var(--team-color);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+}
+
+.game-changers .tab-button.active {
+  background: var(--team-color);
+  border-color: var(--team-color);
+  color: #000;
+}
+
+.game-changers .team-member-card {
+  border-color: rgba(255, 165, 0, 0.2);
+}
+
+.game-changers .team-member-card:hover {
+  border-color: var(--team-color);
+  box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .member-portrait {
+  border-color: rgba(255, 165, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(255, 165, 0, 0.2);
+}
+
+.game-changers .member-portrait::after {
+  background: linear-gradient(45deg, #ffa500, #ffb84d, #ffa500);
+}
+
+.game-changers .member-portrait:hover {
+  border-color: var(--team-color);
+  box-shadow: 0 12px 32px rgba(255, 165, 0, 0.4);
+}
+
+.game-changers .placeholder-portrait {
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .placeholder-icon {
+  fill: var(--team-color);
+}
+
+.game-changers .placeholder-portrait:hover .placeholder-icon {
+  fill: var(--team-color-hover);
+}
+
+.game-changers .member-ign {
+  color: var(--team-color);
+}
+
+.game-changers .member-socials a {
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.game-changers .member-socials a:hover {
+  background: var(--team-color);
+  border-color: var(--team-color);
+}
+
+.game-changers .loading {
+  color: var(--team-color);
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 import GameSlider from '../components/GameSlider';
 import TypingAnimation from '../components/TypingAnimation';
 import TitleTypingAnimation from '../components/TitleTypingAnimation';
@@ -9,85 +9,15 @@ import './Home.css';
 
 const Home = () => {
   const [upcomingMatches, setUpcomingMatches] = useState([]);
-  const [recentMatches, setRecentMatches] = useState([]);
-  const [allRecentMatches, setAllRecentMatches] = useState([]);
-  const [players, setPlayers] = useState([]);
-  const [coaches, setCoaches] = useState([]);
-  const [activeTab, setActiveTab] = useState('players');
+  const [mainTeamPlayers, setMainTeamPlayers] = useState([]);
+  const [vantageTeamPlayers, setVantageTeamPlayers] = useState([]);
+  const [gameChangersPlayers, setGameChangersPlayers] = useState([]);
+  const [streamers, setStreamers] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Filter states
-  const [selectedYear, setSelectedYear] = useState('all');
-  const [selectedMonth, setSelectedMonth] = useState('all');
-  const [selectedDays, setSelectedDays] = useState('all');
-  const [displayLimit, setDisplayLimit] = useState(6);
-  const [totalFilteredMatches, setTotalFilteredMatches] = useState(0);
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  // Filter matches based on selected criteria
-  useEffect(() => {
-    filterMatches();
-  }, [allRecentMatches, selectedYear, selectedMonth, selectedDays, displayLimit]);
-
-  const filterMatches = () => {
-    let filtered = [...allRecentMatches];
-
-    // Filter by year
-    if (selectedYear !== 'all') {
-      filtered = filtered.filter(match => {
-        const matchYear = match.date?.toDate().getFullYear().toString();
-        return matchYear === selectedYear;
-      });
-    }
-
-    // Filter by month
-    if (selectedMonth !== 'all') {
-      filtered = filtered.filter(match => {
-        const matchMonth = (match.date?.toDate().getMonth() + 1).toString();
-        return matchMonth === selectedMonth;
-      });
-    }
-
-    // Filter by days (last X days)
-    if (selectedDays !== 'all') {
-      const daysAgo = parseInt(selectedDays);
-      const cutoffDate = new Date();
-      cutoffDate.setDate(cutoffDate.getDate() - daysAgo);
-      
-      filtered = filtered.filter(match => {
-        return match.date?.toDate() >= cutoffDate;
-      });
-    }
-
-    // Apply display limit and update total count
-    setTotalFilteredMatches(filtered.length);
-    setRecentMatches(filtered.slice(0, displayLimit));
-  };
-
-  // Get unique years from matches
-  const getAvailableYears = () => {
-    const years = [...new Set(allRecentMatches.map(match => 
-      match.date?.toDate().getFullYear().toString()
-    ))].sort((a, b) => b - a);
-    return years;
-  };
-
-  // Get unique months from matches
-  const getAvailableMonths = () => {
-    const months = [...new Set(allRecentMatches.map(match => 
-      (match.date?.toDate().getMonth() + 1).toString()
-    ))].sort((a, b) => a - b);
-    return months;
-  };
-
-  const monthNames = {
-    '1': 'January', '2': 'February', '3': 'March', '4': 'April',
-    '5': 'May', '6': 'June', '7': 'July', '8': 'August',
-    '9': 'September', '10': 'October', '11': 'November', '12': 'December'
-  };
 
   const fetchData = async () => {
     try {
@@ -104,16 +34,11 @@ const Home = () => {
       const now = new Date();
       const upcoming = matches
         .filter(m => m.date?.toDate() > now)
-        .sort((a, b) => a.date?.toDate() - b.date?.toDate()); // Sort by date, earliest first
-      const allRecent = matches
-        .filter(m => m.date?.toDate() <= now)
-        .sort((a, b) => b.date?.toDate() - a.date?.toDate()); // Sort by date, latest first
+        .sort((a, b) => a.date?.toDate() - b.date?.toDate());
 
       setUpcomingMatches(upcoming);
-      setAllRecentMatches(allRecent);
-      setRecentMatches(allRecent.slice(0, displayLimit));
 
-      // Fetch players
+      // Fetch players and separate by team
       const playersRef = collection(db, 'players');
       const playersSnapshot = await getDocs(playersRef);
       const playersData = playersSnapshot.docs.map(doc => ({
@@ -121,18 +46,65 @@ const Home = () => {
         ...doc.data()
       }));
       
-      // Separate players and coaches
-      const playersList = playersData.filter(p => !p.role.toLowerCase().includes('coach'));
-      const coachesList = playersData.filter(p => p.role.toLowerCase().includes('coach'));
+      // Separate by team (only non-coaches)
+      const mainPlayers = playersData.filter(p => 
+        p.team === 'main' && !p.role.toLowerCase().includes('coach')
+      );
+      const vantagePlayers = playersData.filter(p => 
+        p.team === 'vantage' && !p.role.toLowerCase().includes('coach')
+      );
+      const gameChangersPlayers = playersData.filter(p => 
+        p.team === 'game-changers' && !p.role.toLowerCase().includes('coach')
+      );
       
-      setPlayers(playersList);
-      setCoaches(coachesList);
+      setMainTeamPlayers(mainPlayers);
+      setVantageTeamPlayers(vantagePlayers);
+      setGameChangersPlayers(gameChangersPlayers);
+
+      // Fetch streamers
+      const streamersRef = collection(db, 'streamers');
+      const streamersQuery = query(streamersRef, orderBy('name'), limit(6));
+      const streamersSnapshot = await getDocs(streamersQuery);
+      const streamersData = streamersSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      setStreamers(streamersData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
       setLoading(false);
     }
   };
+
+  const renderPlayerCard = (player) => (
+    <div key={player.id} className="team-member-card">
+      <div className="member-portrait">
+        {player.photoUrl && player.photoUrl.trim() !== '' ? (
+          <img src={player.photoUrl} alt={player.fullName} />
+        ) : (
+          <div className="placeholder-portrait">
+            <svg className="placeholder-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+        )}
+      </div>
+      <div className="member-info">
+        <h3 className="member-name">{player.fullName}</h3>
+        <p className="member-ign">{player.role}</p>
+        <div className="member-socials">
+          {player.socials?.twitter && (
+            <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>
+          )}
+          {player.socials?.twitch && (
+            <a href={player.socials.twitch} target="_blank" rel="noopener noreferrer">TWITCH</a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -154,228 +126,104 @@ const Home = () => {
         </p>
       </section>
 
-      {/* Team Section */}
-      <section id="team" className="team-section">
+      {/* Upcoming Games Section */}
+      <section id="upcoming-games" className="upcoming-games-section-home">
+        <h2 className="section-title">
+          <TitleTypingAnimation text="UPCOMING GAMES" speed={5} delay={100} useViewport={true} />
+        </h2>
+        {upcomingMatches.length > 0 ? (
+          <GameSlider games={upcomingMatches} />
+        ) : (
+          <div className="no-data">No upcoming matches scheduled</div>
+        )}
+      </section>
+
+      {/* Main Team Section */}
+      <section id="main-team" className="team-section main-team-section">
         <div className="team-section-header">
           <h2 className="section-title">
-            <TitleTypingAnimation text="OUR TEAM" speed={5} delay={100} useViewport={true} />
+            <TitleTypingAnimation text="MAIN TEAM" speed={5} delay={100} useViewport={true} />
           </h2>
-          <div className="team-tabs">
-            <button 
-              className={`tab-button ${activeTab === 'players' ? 'active' : ''}`}
-              onClick={() => setActiveTab('players')}
-            >
-              PLAYERS
-            </button>
-            <button 
-              className={`tab-button ${activeTab === 'coaches' ? 'active' : ''}`}
-              onClick={() => setActiveTab('coaches')}
-            >
-              COACHES
-            </button>
-          </div>
+          <Link to="/teams/main" className="view-more-btn">VIEW FULL ROSTER →</Link>
         </div>
         
         <div className="team-grid">
-          {activeTab === 'players' ? (
-            players.length > 0 ? (
-              players.map(player => (
-                <div key={player.id} className="team-member-card">
-                  <div className="member-portrait">
-                    {player.photoUrl ? (
-                      <img src={player.photoUrl} alt={player.fullName} />
-                    ) : (
-                      <div className="placeholder-portrait">
-                        <img src="/icons/user-solid.svg" alt="User" className="placeholder-icon" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="member-info">
-                    <h3 className="member-name">{player.fullName}</h3>
-                    <p className="member-ign">{player.role}</p>
-                    <div className="member-socials">
-                      {player.socials?.twitter && (
-                        <a href={player.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>
-                      )}
-                      {player.socials?.twitch && (
-                        <a href={player.socials.twitch} target="_blank" rel="noopener noreferrer">TWITCH</a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="no-data">No players added yet</div>
-            )
+          {mainTeamPlayers.length > 0 ? (
+            mainTeamPlayers.slice(0, 5).map(renderPlayerCard)
           ) : (
-            coaches.length > 0 ? (
-              coaches.map(coach => (
-                <div key={coach.id} className="team-member-card">
-                  <div className="member-portrait">
-                    {coach.photoUrl ? (
-                      <img src={coach.photoUrl} alt={coach.fullName} />
-                    ) : (
-                      <div className="placeholder-portrait">
-                        <img src="/icons/user-solid.svg" alt="User" className="placeholder-icon" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="member-info">
-                    <h3 className="member-name">{coach.fullName}</h3>
-                    <p className="member-ign">{coach.role}</p>
-                    <div className="member-socials">
-                      {coach.socials?.twitter && (
-                        <a href={coach.socials.twitter} target="_blank" rel="noopener noreferrer">TWITTER</a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="no-data">No coaches added yet</div>
-            )
+            <div className="no-data">No main team players added yet</div>
           )}
         </div>
       </section>
 
-      {/* Upcoming Games Section */}
-      <section id="upcoming-games">
-        <GameSlider games={upcomingMatches} />
-      </section>
-
-      {/* Recent Games Section */}
-      <section id="recent-games" className="recent-games-section">
-        <div className="recent-games-section-header">
-          <h2 className="section-title">
-            <TitleTypingAnimation text="RECENT GAMES" speed={5} delay={50} useViewport={true} />
+      {/* Team Vantage Section */}
+      <section id="team-vantage" className="team-section vantage-team-section">
+        <div className="team-section-header">
+          <h2 className="section-title vantage-title">
+            <TitleTypingAnimation text="TEAM VANTAGE" speed={5} delay={100} useViewport={true} />
           </h2>
-          <div className="games-filter-controls">
-            <div className="filter-group">
-              <label htmlFor="year-filter">Year:</label>
-              <select 
-                id="year-filter"
-                value={selectedYear} 
-                onChange={(e) => setSelectedYear(e.target.value)}
-                className="filter-select"
-              >
-                <option value="all">All Years</option>
-                {getAvailableYears().map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="filter-group">
-              <label htmlFor="month-filter">Month:</label>
-              <select 
-                id="month-filter"
-                value={selectedMonth} 
-                onChange={(e) => setSelectedMonth(e.target.value)}
-                className="filter-select"
-              >
-                <option value="all">All Months</option>
-                {getAvailableMonths().map(month => (
-                  <option key={month} value={month}>{monthNames[month]}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="filter-group">
-              <label htmlFor="days-filter">Last:</label>
-              <select 
-                id="days-filter"
-                value={selectedDays} 
-                onChange={(e) => setSelectedDays(e.target.value)}
-                className="filter-select"
-              >
-                <option value="all">All Time</option>
-                <option value="7">7 Days</option>
-                <option value="30">30 Days</option>
-                <option value="90">90 Days</option>
-              </select>
-            </div>
-            
-            <div className="filter-group">
-              <label htmlFor="limit-filter">Show:</label>
-              <select 
-                id="limit-filter"
-                value={displayLimit} 
-                onChange={(e) => setDisplayLimit(parseInt(e.target.value))}
-                className="filter-select"
-              >
-                <option value="3">3 Games</option>
-                <option value="6">6 Games</option>
-                <option value="9">9 Games</option>
-                <option value="12">12 Games</option>
-              </select>
-            </div>
-          </div>
+          <Link to="/teams/vantage" className="view-more-btn vantage-btn">VIEW FULL ROSTER →</Link>
         </div>
         
-        {totalFilteredMatches > 0 && (
-          <div className="matches-count">
-            Showing {recentMatches.length} of {totalFilteredMatches} matches
-          </div>
-        )}
+        <div className="team-grid">
+          {vantageTeamPlayers.length > 0 ? (
+            vantageTeamPlayers.slice(0, 5).map(renderPlayerCard)
+          ) : (
+            <div className="no-data">No team vantage players added yet</div>
+          )}
+        </div>
+      </section>
+
+      {/* Game Changers Section */}
+      <section id="game-changers" className="team-section game-changers-section">
+        <div className="team-section-header">
+          <h2 className="section-title game-changers-title">
+            <TitleTypingAnimation text="GAME CHANGERS" speed={5} delay={100} useViewport={true} />
+          </h2>
+          <Link to="/teams/game-changers" className="view-more-btn game-changers-btn">VIEW FULL ROSTER →</Link>
+        </div>
         
-        <div className="games-container">
-          {recentMatches.length > 0 ? (
-            recentMatches.map(match => (
-              <div key={match.id} className={`game-card ${match.ourScore > match.opponentScore ? 'victory-card' : 'defeat-card'}`}>
-                <div className="game-header">
-                  <div className="game-date">
-                    {format(match.date.toDate(), 'MMM d, yyyy')} at {format(match.date.toDate(), 'h:mm a')}
-                  </div>
-                  <div className="game-tournament">{match.tournament}</div>
-                  <div className={`game-result-badge ${match.ourScore > match.opponentScore ? 'victory' : 'defeat'}`}>
-                    {match.ourScore > match.opponentScore ? 'VICTORY' : 'DEFEAT'}
-                  </div>
-                </div>
-                <div className="game-teams">
-                  <div className="team-info">
-                    <div className="team-logo">
-                      <img src="/icons/logos/bodax-gaming_logo_2.svg" alt="BODAX Gaming" className="team-logo-img" />
-                    </div>
-                    <div className="team-name">BODAX GAMING</div>
-                  </div>
-                  <div className="game-score">
-                    <div className="score-display">
-                      <span className={`score ${match.ourScore > match.opponentScore ? 'win' : 'loss'}`}>
-                        {match.ourScore}
-                      </span>
-                      <span className="score-separator">-</span>
-                      <span className={`score ${match.opponentScore > match.ourScore ? 'win' : 'loss'}`}>
-                        {match.opponentScore}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="team-info">
-                    <div className="team-logo team-logo-placeholder">
-                      <span className="placeholder-text">{match.opponent?.substring(0, 3).toUpperCase()}</span>
-                    </div>
-                    <div className="team-name">{match.opponent}</div>
-                  </div>
-                </div>
-                {match.vlrLink && (
-                  <div className="game-actions">
-                    <a 
-                      href={match.vlrLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="vlr-link"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M10 13L15 8L10 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M15 8H3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <div className="team-grid">
+          {gameChangersPlayers.length > 0 ? (
+            gameChangersPlayers.slice(0, 5).map(renderPlayerCard)
+          ) : (
+            <div className="no-data">No game changers players added yet</div>
+          )}
+        </div>
+      </section>
+
+      {/* Streamers Section */}
+      <section id="streamers" className="streamers-section-home">
+        <div className="streamers-section-header">
+          <h2 className="section-title streamers-title">
+            <TitleTypingAnimation text="OUR STREAMERS" speed={5} delay={100} useViewport={true} />
+          </h2>
+          <Link to="/streamers" className="view-more-btn streamers-btn">VIEW ALL STREAMERS →</Link>
+        </div>
+        
+        <div className="streamers-grid-home">
+          {streamers.length > 0 ? (
+            streamers.map(streamer => (
+              <div key={streamer.id} className="streamer-card-home">
+                <div className="streamer-portrait-home">
+                  {streamer.photoUrl && streamer.photoUrl.trim() !== '' ? (
+                    <img src={streamer.photoUrl} alt={streamer.name} />
+                  ) : (
+                    <div className="streamer-placeholder-portrait">
+                      <svg className="streamer-placeholder-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                       </svg>
-                      VLR.GG
-                    </a>
-                  </div>
-                )}
+                    </div>
+                  )}
+                </div>
+                <div className="streamer-info-home">
+                  <h3 className="streamer-name-home">{streamer.name}</h3>
+                  <p className="streamer-title-home">{streamer.title || 'Content Creator'}</p>
+                </div>
               </div>
             ))
           ) : (
-            <div className="no-data">No recent matches found</div>
+            <div className="no-data">No streamers added yet</div>
           )}
         </div>
       </section>
@@ -384,4 +232,3 @@ const Home = () => {
 };
 
 export default Home;
-

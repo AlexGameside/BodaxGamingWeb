@@ -161,20 +161,25 @@ const GameSlider = ({ games }) => {
               >
                 <div className="game-card">
                   <div className="game-header">
-                    <div className="game-date">
-                      {game.date?.toDate ? 
-                        `${game.date.toDate().toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })} at ${game.date.toDate().toLocaleTimeString('en-US', {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}` : 
-                        'TBD'
-                      }
+                    <div className="game-header-left">
+                      <div className="game-date">
+                        {game.date?.toDate ? 
+                          `${game.date.toDate().toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })} at ${game.date.toDate().toLocaleTimeString('en-US', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}` : 
+                          'TBD'
+                        }
+                      </div>
+                      <div className="game-tournament">{game.tournament}</div>
                     </div>
-                    <div className="game-tournament">{game.tournament}</div>
+                    <div className="game-header-right">
+                      <div className="game-status">UPCOMING</div>
+                    </div>
                   </div>
 
                   <div className="game-teams">
@@ -186,10 +191,16 @@ const GameSlider = ({ games }) => {
                     </div>
                     <div className="vs">VS</div>
                     <div className="team-info">
-                      <div className="team-logo team-logo-placeholder">
-                        <span className="placeholder-text">
-                          {game.opponent?.substring(0, 3).toUpperCase()}
-                        </span>
+                      <div className="team-logo">
+                        {game.opponentLogo ? (
+                          <img src={game.opponentLogo} alt={game.opponent} className="team-logo-img" />
+                        ) : (
+                          <div className="team-logo-placeholder">
+                            <span className="placeholder-text">
+                              {game.opponent?.substring(0, 3).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <div className="team-name">{game.opponent}</div>
                     </div>
@@ -222,7 +233,7 @@ const GameSlider = ({ games }) => {
                           <path d="M10 13L15 8L10 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           <path d="M15 8H3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        VLR.gg
+                        Game Details
                       </a>
                     )}
                   </div>

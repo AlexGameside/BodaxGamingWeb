@@ -1,0 +1,479 @@
+/* Main Team Page Styles - Matching Homepage */
+.team-page {
+  min-height: 100vh;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  color: #fff;
+  font-size: 18px;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: 0 0, 0 0;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 18px;
+  color: #e5294f;
+}
+
+/* Section 1: Team Hero Section */
+.team-hero-section {
+  text-align: center;
+  padding: 100px 20px;
+  animation: fadeIn 1.2s ease-in-out 0.3s both;
+}
+
+.team-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-title {
+  font-size: 72px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  color: #fff;
+}
+
+.team-tagline {
+  font-size: 24px;
+  color: #e5294f;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  margin-bottom: 40px;
+}
+
+.team-socials {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  background: transparent;
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.social-button:hover {
+  border-color: #e5294f;
+  background: rgba(229, 41, 79, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(229, 41, 79, 0.4);
+}
+
+.social-button .social-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.upcoming-match-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.upcoming-match-card:hover {
+  border-color: #e5294f;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(229, 41, 79, 0.3);
+}
+
+.upcoming-match-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e5294f;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 25px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.match-info {
+  text-align: center;
+}
+
+.match-date {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.match-tournament {
+  font-size: 18px;
+  color: #e5294f;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.match-opponent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vs-text {
+  font-size: 14px;
+  color: #999;
+  font-weight: bold;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.opponent-name {
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+/* Section 2: Team Section (Copied from Homepage) */
+.team-section {
+  padding: 80px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in-out 0.2s both;
+}
+
+.team-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(229, 41, 79, 0.3);
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #e5294f;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.team-tabs {
+  display: flex;
+  gap: 30px;
+}
+
+.tab-button {
+  background: transparent;
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  color: #fff;
+  padding: 15px 30px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.tab-button:hover {
+  border-color: #e5294f;
+  color: #e5294f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(229, 41, 79, 0.4);
+}
+
+.tab-button.active {
+  background: #e5294f;
+  border-color: #e5294f;
+  color: #000;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.team-member-card {
+  background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+  border: 2px solid rgba(229, 41, 79, 0.2);
+  padding: 30px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  animation: scaleIn 0.6s ease-out;
+  animation-fill-mode: both;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.team-member-card:nth-child(1) { animation-delay: 0.1s; }
+.team-member-card:nth-child(2) { animation-delay: 0.2s; }
+.team-member-card:nth-child(3) { animation-delay: 0.3s; }
+.team-member-card:nth-child(4) { animation-delay: 0.4s; }
+.team-member-card:nth-child(5) { animation-delay: 0.5s; }
+.team-member-card:nth-child(6) { animation-delay: 0.6s; }
+
+.team-member-card:hover {
+  border-color: #e5294f;
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(229, 41, 79, 0.3);
+}
+
+.member-portrait {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px;
+  border: 3px solid rgba(229, 41, 79, 0.4);
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(229, 41, 79, 0.2);
+}
+
+.member-portrait::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #e5294f, #ff6b7a, #e5294f);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.member-portrait:hover {
+  border-color: #e5294f;
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(229, 41, 79, 0.4);
+}
+
+.member-portrait:hover::after {
+  opacity: 1;
+}
+
+.member-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.3s ease;
+}
+
+.member-portrait:hover img {
+  transform: scale(1.1);
+}
+
+.placeholder-portrait {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-icon {
+  width: 60px;
+  height: 60px;
+  fill: #e5294f;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.placeholder-portrait:hover .placeholder-icon {
+  opacity: 1;
+  transform: scale(1.1);
+  fill: #ff6b7a;
+}
+
+.member-info {
+  position: relative;
+}
+
+.member-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.member-ign {
+  font-size: 16px;
+  color: #e5294f;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+.member-socials {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.member-socials a {
+  font-size: 11px;
+  color: #ccc;
+  text-decoration: none;
+  padding: 5px 12px;
+  border: 1px solid rgba(229, 41, 79, 0.3);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+.member-socials a:hover {
+  color: #000;
+  background: #e5294f;
+  border-color: #e5294f;
+  transform: translateY(-2px);
+}
+
+.no-data {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 18px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-title {
+    font-size: 48px;
+    letter-spacing: 2px;
+  }
+
+  .team-tagline {
+    font-size: 18px;
+  }
+
+  .team-socials {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-button {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .upcoming-match-card {
+    padding: 30px 20px;
+  }
+
+  .team-section-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .team-tabs {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tab-button {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 12px;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .member-portrait {
+    width: 120px;
+    height: 120px;
+  }
+}
