@@ -91,10 +91,14 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
+      console.log('Fetching data from Firebase...');
+      
       // Fetch matches
       const matchesRef = collection(db, 'matches');
-      const matchesQuery = query(matchesRef, orderBy('date', 'desc'), limit(10));
+      const matchesQuery = query(matchesRef, orderBy('date', 'desc'), limit(50));
       const matchesSnapshot = await getDocs(matchesQuery);
+      
+      console.log(`Found ${matchesSnapshot.docs.length} matches`);
       
       const matches = matchesSnapshot.docs.map(doc => ({
         id: doc.id,
@@ -103,12 +107,14 @@ const Home = () => {
 
       const now = new Date();
       const upcoming = matches
-        .filter(m => m.date?.toDate() > now)
-        .sort((a, b) => a.date?.toDate() - b.date?.toDate()); // Sort by date, earliest first
+        .filter(m => m.date && m.date.toDate && m.date.toDate() > now)
+        .sort((a, b) => a.date.toDate() - b.date.toDate());
       const allRecent = matches
-        .filter(m => m.date?.toDate() <= now)
-        .sort((a, b) => b.date?.toDate() - a.date?.toDate()); // Sort by date, latest first
+        .filter(m => m.date && m.date.toDate && m.date.toDate() <= now)
+        .sort((a, b) => b.date.toDate() - a.date.toDate());
 
+      console.log(`Upcoming: ${upcoming.length}, Recent: ${allRecent.length}`);
+      
       setUpcomingMatches(upcoming);
       setAllRecentMatches(allRecent);
       setRecentMatches(allRecent.slice(0, displayLimit));
@@ -116,20 +122,34 @@ const Home = () => {
       // Fetch players
       const playersRef = collection(db, 'players');
       const playersSnapshot = await getDocs(playersRef);
+      
+      console.log(`Found ${playersSnapshot.docs.length} players`);
+      
       const playersData = playersSnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
       
       // Separate players and coaches
-      const playersList = playersData.filter(p => !p.role.toLowerCase().includes('coach'));
-      const coachesList = playersData.filter(p => p.role.toLowerCase().includes('coach'));
+      const playersList = playersData.filter(p => !p.role?.toLowerCase().includes('coach'));
+      const coachesList = playersData.filter(p => p.role?.toLowerCase().includes('coach'));
+      
+      console.log(`Players: ${playersList.length}, Coaches: ${coachesList.length}`);
       
       setPlayers(playersList);
       setCoaches(coachesList);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      
+      // Set empty arrays on error so UI doesn't break
+      setUpcomingMatches([]);
+      setAllRecentMatches([]);
+      setRecentMatches([]);
+      setPlayers([]);
+      setCoaches([]);
       setLoading(false);
     }
   };
@@ -350,9 +370,15 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="team-info">
-                    <div className="team-logo team-logo-placeholder">
-                      <span className="placeholder-text">{match.opponent?.substring(0, 3).toUpperCase()}</span>
-                    </div>
+                    {match.opponentLogoUrl ? (
+                      <div className="team-logo">
+                        <img src={match.opponentLogoUrl} alt={match.opponent} className="team-logo-img" />
+                      </div>
+                    ) : (
+                      <div className="team-logo team-logo-placeholder">
+                        <span className="placeholder-text">{match.opponent?.substring(0, 3).toUpperCase()}</span>
+                      </div>
+                    )}
                     <div className="team-name">{match.opponent}</div>
                   </div>
                 </div>

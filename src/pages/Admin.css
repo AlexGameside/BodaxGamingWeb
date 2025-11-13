@@ -324,6 +324,158 @@
   min-height: 100px;
 }
 
+/* Logo input method toggle */
+.logo-input-method-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.method-toggle-btn {
+  flex: 1;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid rgba(229, 41, 79, 0.3);
+  color: #ccc;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.method-toggle-btn:hover {
+  border-color: rgba(229, 41, 79, 0.6);
+  color: #fff;
+}
+
+.method-toggle-btn.active {
+  background: #e5294f;
+  border-color: #e5294f;
+  color: #000;
+  font-weight: bold;
+}
+
+/* URL input styling */
+.url-input {
+  padding: 15px;
+  background: #000000;
+  border: 2px solid rgba(229, 41, 79, 0.2);
+  color: #fff;
+  font-size: 14px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.url-input:focus {
+  outline: none;
+  border-color: #e5294f;
+}
+
+.url-input::placeholder {
+  color: #666;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+}
+
+/* File input styling */
+.file-input {
+  padding: 12px;
+  background: #000000;
+  border: 2px solid rgba(229, 41, 79, 0.2);
+  color: #fff;
+  font-size: 14px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+}
+
+.file-input:hover {
+  border-color: rgba(229, 41, 79, 0.5);
+}
+
+.file-input:focus {
+  outline: none;
+  border-color: #e5294f;
+}
+
+.file-input::file-selector-button {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(229, 41, 79, 0.3);
+  color: #e5294f;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: all 0.3s ease;
+}
+
+.file-input::file-selector-button:hover {
+  background: rgba(229, 41, 79, 0.1);
+  border-color: #e5294f;
+}
+
+/* Image preview */
+.image-preview {
+  margin-top: 15px;
+  padding: 15px;
+  background: #000000;
+  border: 2px solid rgba(229, 41, 79, 0.2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.image-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.remove-image-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 2px solid #f44336;
+  color: #f44336;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.remove-image-btn:hover {
+  background: #f44336;
+  color: #fff;
+}
+
+.form-help-text {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #999;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-family: 'AstroMono', 'Courier New', monospace;
+  font-style: italic;
+}
+
 .submit-btn {
   padding: 15px 30px;
   background: transparent;

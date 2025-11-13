@@ -29,8 +29,15 @@ const Admin = () => {
     ourScore: '',
     opponentScore: '',
     streamLink: '',
-    vlrLink: ''
+    vlrLink: '',
+    opponentLogoUrl: ''
   });
+  
+  // Image upload state
+  const [opponentLogoFile, setOpponentLogoFile] = useState(null);
+  const [opponentLogoPreview, setOpponentLogoPreview] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [logoInputMethod, setLogoInputMethod] = useState('url'); // 'url' or 'file'
 
   // Player form state
   const [playerForm, setPlayerForm] = useState({
@@ -91,6 +98,66 @@ const Admin = () => {
     }
   };
 
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageUpload = async (file) => {
+    if (!file) return null;
+    
+    setUploadingImage(true);
+    try {
+      // Check file size (max 500KB for base64 storage)
+      const maxSize = 500 * 1024; // 500KB
+      if (file.size > maxSize) {
+        throw new Error(`Image size (${Math.round(file.size / 1024)}KB) exceeds the maximum allowed size of 500KB. Please use a smaller image or provide a URL instead.`);
+      }
+      
+      // Convert to base64
+      const base64String = await convertFileToBase64(file);
+      console.log('Image converted to base64, size:', Math.round(base64String.length / 1024), 'KB');
+      
+      return base64String;
+    } catch (error) {
+      console.error('Error processing image:', error);
+      throw error;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleLogoFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setMessage('Please select an image file.');
+        return;
+      }
+      
+      // Validate file size (max 500KB for base64 storage)
+      const maxSize = 500 * 1024; // 500KB
+      if (file.size > maxSize) {
+        setMessage(`Image size (${Math.round(file.size / 1024)}KB) exceeds the maximum allowed size of 500KB. Please use a smaller image or provide a URL instead.`);
+        return;
+      }
+      
+      setOpponentLogoFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setOpponentLogoPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleMatchSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -115,6 +182,28 @@ const Admin = () => {
         throw new Error('Invalid date or time format');
       }
       
+      // Handle opponent logo - either from URL or file upload
+      let opponentLogoUrl = matchForm.opponentLogoUrl;
+      if (logoInputMethod === 'file' && opponentLogoFile) {
+        try {
+          opponentLogoUrl = await handleImageUpload(opponentLogoFile);
+        } catch (uploadError) {
+          setMessage(`Failed to process image: ${uploadError.message}`);
+          setLoading(false);
+          return;
+        }
+      } else if (logoInputMethod === 'url' && matchForm.opponentLogoUrl) {
+        // Validate URL format
+        try {
+          new URL(matchForm.opponentLogoUrl);
+        } catch (urlError) {
+          setMessage('Please enter a valid image URL.');
+          setLoading(false);
+          return;
+        }
+        opponentLogoUrl = matchForm.opponentLogoUrl;
+      }
+      
       if (editingMatch) {
         // Update existing match
         await updateDoc(doc(db, 'matches', editingMatch.id), {
@@ -125,6 +214,7 @@ const Admin = () => {
           opponentScore: parseInt(matchForm.opponentScore) || 0,
           streamLink: matchForm.streamLink,
           vlrLink: matchForm.vlrLink,
+          opponentLogoUrl: opponentLogoUrl || null,
         });
         setMessage('Match updated successfully!');
         setEditingMatch(null);
@@ -138,6 +228,7 @@ const Admin = () => {
           opponentScore: parseInt(matchForm.opponentScore) || 0,
           streamLink: matchForm.streamLink,
           vlrLink: matchForm.vlrLink,
+          opponentLogoUrl: opponentLogoUrl || null,
           createdAt: Timestamp.now()
         });
         setMessage('Match added successfully!');
@@ -151,8 +242,13 @@ const Admin = () => {
         ourScore: '',
         opponentScore: '',
         streamLink: '',
-        vlrLink: ''
+        vlrLink: '',
+        opponentLogoUrl: ''
       });
+      
+      // Reset image upload state
+      setOpponentLogoFile(null);
+      setOpponentLogoPreview(null);
       
       await fetchMatches();
     } catch (error) {
@@ -239,8 +335,25 @@ const Admin = () => {
       ourScore: match.ourScore.toString(),
       opponentScore: match.opponentScore.toString(),
       streamLink: match.streamLink || '',
-      vlrLink: match.vlrLink || ''
+      vlrLink: match.vlrLink || '',
+      opponentLogoUrl: match.opponentLogoUrl || ''
     });
+    
+    // Set preview if logo exists
+    if (match.opponentLogoUrl) {
+      setOpponentLogoPreview(match.opponentLogoUrl);
+      // Determine input method based on URL format
+      if (match.opponentLogoUrl.startsWith('data:')) {
+        setLogoInputMethod('file');
+      } else {
+        setLogoInputMethod('url');
+      }
+    } else {
+      setOpponentLogoPreview(null);
+      setLogoInputMethod('url');
+    }
+    setOpponentLogoFile(null);
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -291,8 +404,12 @@ const Admin = () => {
       ourScore: '',
       opponentScore: '',
       streamLink: '',
-      vlrLink: ''
+      vlrLink: '',
+      opponentLogoUrl: ''
     });
+    setOpponentLogoFile(null);
+    setOpponentLogoPreview(null);
+    setLogoInputMethod('url');
   };
 
   const handleSeedData = async () => {
@@ -499,8 +616,110 @@ const Admin = () => {
                 />
               </div>
 
-              <button type="submit" disabled={loading} className="submit-btn">
-                {loading ? 'Saving...' : editingMatch ? 'Update Match' : 'Add Match'}
+              <div className="form-group">
+                <label>Opponent Team Logo (optional)</label>
+                
+                <div className="logo-input-method-toggle">
+                  <button
+                    type="button"
+                    className={`method-toggle-btn ${logoInputMethod === 'url' ? 'active' : ''}`}
+                    onClick={() => {
+                      setLogoInputMethod('url');
+                      setOpponentLogoFile(null);
+                      if (!matchForm.opponentLogoUrl) {
+                        setOpponentLogoPreview(null);
+                      }
+                    }}
+                  >
+                    Use URL
+                  </button>
+                  <button
+                    type="button"
+                    className={`method-toggle-btn ${logoInputMethod === 'file' ? 'active' : ''}`}
+                    onClick={() => {
+                      setLogoInputMethod('file');
+                      if (!opponentLogoFile && !matchForm.opponentLogoUrl) {
+                        setOpponentLogoPreview(null);
+                      }
+                    }}
+                  >
+                    Upload File
+                  </button>
+                </div>
+
+                {logoInputMethod === 'url' ? (
+                  <>
+                    <input
+                      type="url"
+                      value={matchForm.opponentLogoUrl}
+                      onChange={(e) => {
+                        const url = e.target.value;
+                        setMatchForm({...matchForm, opponentLogoUrl: url});
+                        if (url) {
+                          setOpponentLogoPreview(url);
+                        } else {
+                          setOpponentLogoPreview(null);
+                        }
+                      }}
+                      placeholder="https://example.com/logo.png"
+                      className="url-input"
+                    />
+                    {matchForm.opponentLogoUrl && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setMatchForm({...matchForm, opponentLogoUrl: ''});
+                          setOpponentLogoPreview(null);
+                        }}
+                        className="remove-image-btn"
+                      >
+                        Remove Logo
+                      </button>
+                    )}
+                    <p className="form-help-text">Enter a direct image URL (e.g., from Imgur, Cloudinary, or any image hosting service)</p>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLogoFileChange}
+                      className="file-input"
+                    />
+                    <p className="form-help-text">Upload an image file (max 500KB). PNG, JPG, or SVG recommended. Images will be stored as base64.</p>
+                  </>
+                )}
+
+                {opponentLogoPreview && (
+                  <div className="image-preview">
+                    <img src={opponentLogoPreview} alt="Opponent logo preview" />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        // If a new file was selected, remove it and restore existing logo if editing
+                        if (opponentLogoFile) {
+                          setOpponentLogoFile(null);
+                          if (editingMatch && matchForm.opponentLogoUrl && !matchForm.opponentLogoUrl.startsWith('data:')) {
+                            setOpponentLogoPreview(matchForm.opponentLogoUrl);
+                          } else {
+                            setOpponentLogoPreview(null);
+                          }
+                        } else {
+                          // Remove existing logo
+                          setOpponentLogoPreview(null);
+                          setMatchForm({...matchForm, opponentLogoUrl: ''});
+                        }
+                      }}
+                      className="remove-image-btn"
+                    >
+                      {opponentLogoFile ? 'Cancel New Image' : 'Remove Image'}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <button type="submit" disabled={loading || uploadingImage} className="submit-btn">
+                {uploadingImage ? 'Uploading Image...' : loading ? 'Saving...' : editingMatch ? 'Update Match' : 'Add Match'}
               </button>
             </form>
           </div>

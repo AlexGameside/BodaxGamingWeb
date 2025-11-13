@@ -186,11 +186,17 @@ const GameSlider = ({ games }) => {
                     </div>
                     <div className="vs">VS</div>
                     <div className="team-info">
-                      <div className="team-logo team-logo-placeholder">
-                        <span className="placeholder-text">
-                          {game.opponent?.substring(0, 3).toUpperCase()}
-                        </span>
-                      </div>
+                      {game.opponentLogoUrl ? (
+                        <div className="team-logo">
+                          <img src={game.opponentLogoUrl} alt={game.opponent} className="team-logo-img" />
+                        </div>
+                      ) : (
+                        <div className="team-logo team-logo-placeholder">
+                          <span className="placeholder-text">
+                            {game.opponent?.substring(0, 3).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
                       <div className="team-name">{game.opponent}</div>
                     </div>
                   </div>
