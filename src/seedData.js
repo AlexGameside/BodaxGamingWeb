@@ -7,6 +7,8 @@ const examplePlayers = [
     fullName: "Nail",
     ign: "Nail",
     role: "Recon Initiator",
+    country: "Germany",
+    countryCode: "de",
     bio: "Strategic recon initiator with exceptional information gathering and team support capabilities.",
     photoUrl: "/photos/players/nail.jpg",
     socials: {
@@ -18,6 +20,8 @@ const examplePlayers = [
     fullName: "Simplex",
     ign: "Simplex",
     role: "Flash Initiator",
+    country: "Germany",
+    countryCode: "de",
     bio: "Aggressive flash initiator with lightning-fast reflexes. Specializes in creating openings and team coordination.",
     photoUrl: "/photos/players/25_BodaxGaming_Headshot_Simplex.png",
     socials: {
@@ -29,6 +33,8 @@ const examplePlayers = [
     fullName: "InsaneDIN",
     ign: "InsaneDIN",
     role: "Duelist",
+    country: "Germany",
+    countryCode: "de",
     bio: "Aggressive duelist with exceptional fragging ability. Known for clutch plays and high-impact performances.",
     photoUrl: "/photos/players/25_BodaxGaming_Dini.png",
     socials: {
@@ -37,20 +43,23 @@ const examplePlayers = [
     createdAt: Timestamp.now()
   },
   {
-    fullName: "Euii",
-    ign: "Euii",
-    role: "Sentinel",
-    bio: "Defensive specialist with excellent game sense. Master of site control and defensive utility usage.",
-    photoUrl: "/photos/players/25_BodaxGaming_Headshot_Euii.png",
-    socials: {
-      twitter: "https://twitter.com/EuiiNoname"
-    },
+    fullName: "TBD",
+    ign: "",
+    role: "Open Slot",
+    country: "Germany",
+    countryCode: "de",
+    bio: "This roster spot is currently open.",
+    // Use a generic avatar from /public so the UI shows a placeholder instead of a former player.
+    photoUrl: "/icons/user-solid-1.png",
+    socials: {},
     createdAt: Timestamp.now()
   },
   {
     fullName: "Reos",
     ign: "Reos",
     role: "Smoke Controller",
+    country: "Germany",
+    countryCode: "de",
     bio: "Tactical smoke controller with exceptional map control. Expert in area denial and team positioning.",
     photoUrl: "/photos/players/25_BodaxGaming_Headshot_Reos.png",
     socials: {
@@ -66,6 +75,8 @@ const exampleCoaches = [
     fullName: "CloudTail",
     ign: "CloudTail",
     role: "Main Coach",
+    country: "Germany",
+    countryCode: "de",
     bio: "Experienced main coach with deep strategic knowledge and team leadership capabilities.",
     photoUrl: "/photos/coaches/25_BodaxGaming_Headshot_Cloudtail.png",
     socials: {
@@ -77,6 +88,8 @@ const exampleCoaches = [
     fullName: "Sharky",
     ign: "Sharky",
     role: "Assistant Coach",
+    country: "Germany",
+    countryCode: "de",
     bio: "Supportive assistant coach focused on player development and tactical refinement.",
     photoUrl: "/photos/coaches/25_BodaxGaming_Headshot_Sharky.png",
     socials: {

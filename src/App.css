@@ -1,16 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #1a1a1a;
-  color: #ffffff;
-  min-height: 100vh;
-}
-
 .app {
   min-height: 100vh;
   display: flex;
@@ -19,8 +6,7 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 20px;
-  background: #0a0a0a;
+  padding: 0;
 }
 
 .loading {
@@ -29,17 +15,6 @@ body {
   font-size: 18px;
 }
 
-.page-header {
-  text-align: center;
-  padding: 30px 20px;
-}
-
-.page-header h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.page-header p {
-  font-size: 16px;
-  color: #999;
+.page {
+  padding: 0 0 84px;
 }

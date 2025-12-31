@@ -1,0 +1,156 @@
+/* Styles specific to Creators page */
+
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.creator-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.creator-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(229, 41, 78, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.creator-photo {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  height: 100%;
+  background: #121212;
+  position: relative;
+}
+
+.creator-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.05);
+  transition: transform 0.5s ease;
+}
+
+.creator-card:hover .creator-photo img {
+  transform: scale(1.05);
+}
+
+.creator-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+  background: #09090b;
+}
+
+.creator-photo-placeholder img {
+  width: 100%;
+  height: auto;
+  opacity: 0.1;
+  margin-bottom: 0;
+}
+
+.creator-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.8) 30%,
+    rgba(0, 0, 0, 0.4) 70%,
+    transparent 100%
+  );
+  padding: 80px 20px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.creator-name-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.creator-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.creator-socials {
+  margin-top: 6px;
+  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  pointer-events: auto;
+}
+
+.creator-social {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.creator-social:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(229, 41, 78, 0.2);
+}
+
+.creator-social img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.9;
+  transition: opacity 140ms ease;
+}
+
+/* Brand Colors on Hover */
+.creator-social[aria-label="Twitch"]:hover {
+  border-color: #9146FF;
+  background: rgba(145, 70, 255, 0.15);
+}
+
+.creator-social[aria-label="YouTube"]:hover {
+  border-color: #FF0000;
+  background: rgba(255, 0, 0, 0.15);
+}
+
+.creator-social[aria-label="X"]:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.creator-social[aria-label="Instagram"]:hover {
+  border-color: #E1306C;
+  background: rgba(225, 48, 108, 0.15);
+}
+
+.creator-social[aria-label="TikTok"]:hover {
+  border-color: #00f2ea;
+  background: rgba(0, 242, 234, 0.15);
+}
