@@ -1,65 +1,75 @@
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 14px;
+.partners-cta-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
 }
 
-.partner-card {
-  grid-column: span 4;
-  padding: 18px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+.cta-box {
   background: rgba(255, 255, 255, 0.03);
-  box-shadow: var(--shadow2);
-  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 600px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 24px;
+  backdrop-filter: blur(10px);
 }
 
-.partner-logo {
-  width: 100%;
-  height: 56px;
+.cta-box h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cta-box p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cta-actions {
   display: flex;
-  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
 }
 
-.partner-logo img {
-  max-height: 56px;
-  max-width: 100%;
-  object-fit: contain;
+.contact-info {
+    margin-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
 }
 
-.partner-card:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(229, 41, 78, 0.20);
+.contact-label {
+    font-size: 14px;
+    margin-bottom: 8px !important;
 }
 
-.partner-name {
-  font-size: 14px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.contact-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
 }
 
-.partner-cta {
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.partner-card--empty {
-  border-style: dashed;
-  color: var(--muted);
-}
-
-@media (max-width: 920px) {
-  .partner-card { grid-column: span 6; }
+.contact-link:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
 }
 
 @media (max-width: 600px) {
-  .partner-card { grid-column: span 12; }
+  .cta-box {
+    padding: 24px;
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+  }
+  
+  .cta-actions .btn {
+    width: 100%;
+  }
 }
-
-

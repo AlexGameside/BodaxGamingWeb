@@ -41,7 +41,8 @@ const Admin = () => {
     bio: '',
     photoUrl: '',
     twitter: '',
-    twitch: ''
+    twitch: '',
+    vlr: ''
   });
 
   // News form state
@@ -242,7 +243,8 @@ const Admin = () => {
         photoUrl: playerForm.photoUrl,
         socials: {
           twitter: playerForm.twitter,
-          twitch: playerForm.twitch
+          twitch: playerForm.twitch,
+          vlr: playerForm.vlr
         }
       };
 
@@ -261,7 +263,8 @@ const Admin = () => {
         bio: '',
         photoUrl: '',
         twitter: '',
-        twitch: ''
+        twitch: '',
+        vlr: ''
       });
       setEditingPlayer(null);
       fetchPlayers();
@@ -393,7 +396,8 @@ const Admin = () => {
       bio: player.bio || '',
       photoUrl: player.photoUrl || '',
       twitter: player.socials?.twitter || '',
-      twitch: player.socials?.twitch || ''
+      twitch: player.socials?.twitch || '',
+      vlr: player.socials?.vlr || ''
     });
     setEditingPlayer(player);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -850,6 +854,17 @@ const Admin = () => {
                       placeholder="username"
                     />
                   </div>
+                  <div className="form-group">
+                    <label>VLR.GG Link</label>
+                    <input
+                      type="text"
+                      name="vlr"
+                      className="form-input"
+                      value={playerForm.vlr}
+                      onChange={handlePlayerChange}
+                      placeholder="https://vlr.gg/player/..."
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
@@ -872,14 +887,15 @@ const Admin = () => {
                     style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)' }}
                     onClick={() => {
                       setEditingPlayer(null);
-                      setPlayerForm({
+                        setPlayerForm({
                         fullName: '',
                         ign: '',
                         role: '',
                         bio: '',
                         photoUrl: '',
                         twitter: '',
-                        twitch: ''
+                        twitch: '',
+                        vlr: ''
                       });
                     }}
                   >

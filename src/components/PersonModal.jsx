@@ -29,6 +29,7 @@ const PersonModal = ({ person, onClose }) => {
     if (socials.youtube) items.push({ type: 'youtube', url: socials.youtube });
     if (socials.tiktok) items.push({ type: 'tiktok', url: socials.tiktok });
     if (socials.discord) items.push({ type: 'discord', url: socials.discord });
+    if (socials.vlr) items.push({ type: 'vlr', url: socials.vlr });
 
     if (items.length === 0) return null;
 

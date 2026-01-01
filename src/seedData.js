@@ -12,7 +12,8 @@ const examplePlayers = [
     bio: "Strategic recon initiator with exceptional information gathering and team support capabilities.",
     photoUrl: "/photos/players/nail.jpg",
     socials: {
-      twitter: "https://twitter.com/Nailvlr"
+      twitter: "https://twitter.com/Nailvlr",
+      vlr: "https://www.vlr.gg/player/21805/nail"
     },
     createdAt: Timestamp.now()
   },
@@ -25,7 +26,8 @@ const examplePlayers = [
     bio: "Aggressive flash initiator with lightning-fast reflexes. Specializes in creating openings and team coordination.",
     photoUrl: "/photos/players/25_BodaxGaming_Headshot_Simplex.png",
     socials: {
-      twitter: "https://twitter.com/SimplexVal"
+      twitter: "https://twitter.com/SimplexVal",
+      vlr: "https://www.vlr.gg/player/21806/simplex"
     },
     createdAt: Timestamp.now()
   },

@@ -19,7 +19,8 @@ export const navLinks = [
   { label: 'Schedule', to: '/schedule' },
   { label: 'News', to: '/news' },
   { label: 'About', to: '/about' },
-  { label: 'Our Brands', to: '/partners' },
+  { label: 'Our Brands', to: '/brands' },
+  { label: 'Partners', to: '/partners' },
 ];
 
 

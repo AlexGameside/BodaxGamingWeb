@@ -10,6 +10,7 @@ import Creators from './pages/Creators.jsx';
 import Schedule from './pages/Schedule.jsx';
 import About from './pages/About.jsx';
 import Partners from './pages/Partners.jsx';
+import Brands from './pages/Brands.jsx';
 import News from './pages/News.jsx';
 import NewsDetail from './pages/NewsDetail.jsx';
 import Admin from './pages/Admin.jsx';
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/creators" element={<Creators />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/brands" element={<Brands />} />
                 <Route path="/partners" element={<Partners />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/news/:id" element={<NewsDetail />} />

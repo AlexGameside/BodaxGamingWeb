@@ -29,7 +29,7 @@ const Footer = () => {
       ],
     },
     {
-      title: 'Sponsors',
+      title: 'Partners',
       links: [
         { label: 'Coming Soon' },
       ],
@@ -110,7 +110,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom" aria-label="Footer meta">
-          <p className="footer-copy">© 2025 BODAX UG. All rights reserved.</p>
+          <p className="footer-copy">© 2026 BODAX UG. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -91,6 +91,7 @@ const Teams = () => {
               const photo = p.photoUrl || p.photoURL || '';
               const x = p.socials?.twitter || '';
               const twitch = p.socials?.twitch || '';
+              const vlr = p.socials?.vlr || '';
               
               // Only players have country logic typically
               const country = p.country || 'Germany';
@@ -140,7 +141,7 @@ const Teams = () => {
                       ) : null}
                     </div>
 
-                    {(x || twitch) ? (
+                    {(x || twitch || vlr) ? (
                       <div className="roster-socials" onClick={(e) => e.stopPropagation()}>
                         {twitch ? (
                           <a href={twitch} target="_blank" rel="noopener noreferrer" className="roster-social twitch" aria-label="Twitch">
@@ -150,6 +151,11 @@ const Teams = () => {
                         {x ? (
                           <a href={x} target="_blank" rel="noopener noreferrer" className="roster-social" aria-label="X">
                             <img src="/icons/social/x.svg" alt="" />
+                          </a>
+                        ) : null}
+                        {vlr ? (
+                          <a href={vlr} target="_blank" rel="noopener noreferrer" className="roster-social vlr" aria-label="VLR.gg">
+                            <img src="/icons/social/vlr.svg" alt="" />
                           </a>
                         ) : null}
                       </div>
