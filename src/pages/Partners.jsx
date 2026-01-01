@@ -1,6 +1,5 @@
 import './Page.css';
 import './Partners.css';
-import { site } from '../config/site';
 
 const Partners = () => {
   return (
@@ -17,23 +16,21 @@ const Partners = () => {
         <div className="partners-cta-container">
           <div className="cta-box">
             <h2>Become a Partner</h2>
+            
             <p>
               We are currently looking for partners to help us reach new heights. 
-              Check out our pitch deck to learn more about our vision and opportunities.
             </p>
-            <div className="cta-actions">
-              {/* Replace '#' with actual pitch deck URL */}
-              <a href="#" className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                Check out our Pitch Deck
-              </a>
-              <a href={`mailto:${site.email}`} className="btn">
-                Contact Us
-              </a>
-            </div>
             
             <div className="contact-info">
-                <p className="contact-label">Or reach us directly at:</p>
-                <a href={`mailto:${site.email}`} className="contact-link">{site.email}</a>
+                <p className="contact-label">Reach us directly at:</p>
+                <a href="mailto:partner@bodax-gaming.de" className="contact-link">partner@bodax-gaming.de</a>
+            </div>
+
+            <div className="cta-actions">
+              {/* Replace '#' with actual pitch deck URL */}
+              <a href="#" className="btn" target="_blank" rel="noopener noreferrer">
+                Check out our Pitch Deck
+              </a>
             </div>
           </div>
         </div>

@@ -6,8 +6,6 @@ export const site = {
   socials: {
     x: 'https://x.com/GamingBodax',
     tiktok: 'https://www.tiktok.com/@bodaxgaming',
-    instagram: 'https://www.instagram.com/bodaxgaming',
-    youtube: 'https://www.youtube.com/@maxbode72',
     discord: 'https://discord.gg/SCRE27SpvQ',
   },
 };

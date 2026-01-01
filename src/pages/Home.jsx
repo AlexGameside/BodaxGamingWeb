@@ -15,14 +15,11 @@ const BRANDS = [
 
 const SOCIAL_ITEMS = [
   { keys: ['x', 'twitter'], label: 'X', icon: '/icons/social/x.svg' },
-  { keys: ['twitch'], label: 'Twitch', icon: '/icons/social/twitch.svg' },
-  { keys: ['instagram'], label: 'Instagram', icon: '/icons/social/instagram.svg' },
-  { keys: ['youtube'], label: 'YouTube', icon: '/icons/social/youtube.svg' },
   { keys: ['tiktok'], label: 'TikTok', icon: '/icons/social/tiktok.svg' },
   { keys: ['discord'], label: 'Discord', icon: '/icons/social/discord.svg' },
 ];
 
-const SOCIAL_PLATFORMS = ['x', 'twitter', 'tiktok', 'discord', 'youtube', 'twitch', 'instagram'];
+const SOCIAL_PLATFORMS = ['x', 'twitter', 'tiktok', 'discord'];
 
 const normUrl = (v) => (typeof v === 'string' ? v.trim() : '');
 
@@ -58,11 +55,8 @@ const getSocialLinks = (person) => {
     let url = rawValue;
     // Fix up URLs if user entered just username for specific platforms
     if (!url.startsWith('http')) {
-      if (item.label === 'Twitch') url = `https://twitch.tv/${url}`;
-      else if (item.label === 'X') url = `https://x.com/${url.replace('@', '')}`;
-      else if (item.label === 'Instagram') url = `https://instagram.com/${url}`;
+      if (item.label === 'X') url = `https://x.com/${url.replace('@', '')}`;
       else if (item.label === 'TikTok') url = `https://tiktok.com/@${url.replace('@', '')}`;
-      else if (item.label === 'YouTube') url = `https://youtube.com/@${url}`;
     }
 
     const handle = getSocialHandle(rawValue, item.label);
@@ -153,8 +147,6 @@ const Home = () => {
             { id: 'social-x', title: 'Follow us on X', link: site.socials.x, platform: 'x', date: new Date(), image: '/icons/social/x.svg' },
             { id: 'social-tiktok', title: 'Watch on TikTok', link: site.socials.tiktok, platform: 'tiktok', date: new Date(), image: '/icons/social/tiktok.svg' },
             { id: 'social-discord', title: 'Join our Discord', link: site.socials.discord, platform: 'discord', date: new Date(), image: '/icons/social/discord.svg' },
-            { id: 'social-twitch', title: 'Watch Live', link: site.socials.twitch, platform: 'twitch', date: new Date(), image: '/icons/social/twitch.svg' },
-            { id: 'social-insta', title: 'Follow on Instagram', link: site.socials.instagram, platform: 'instagram', date: new Date(), image: '/icons/social/instagram.svg' },
           ].filter((i) => Boolean(i.link)));
         }
       } catch (e) {

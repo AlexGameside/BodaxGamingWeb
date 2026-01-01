@@ -6,8 +6,6 @@ const Footer = () => {
   const socials = [
     { key: 'x', label: 'X', icon: '/icons/social/x.svg', href: site.socials.x },
     { key: 'tiktok', label: 'TikTok', icon: '/icons/social/tiktok.svg', href: site.socials.tiktok },
-    { key: 'instagram', label: 'Instagram', icon: '/icons/social/instagram.svg', href: site.socials.instagram },
-    { key: 'youtube', label: 'YouTube', icon: '/icons/social/youtube.svg', href: site.socials.youtube },
     { key: 'discord', label: 'Discord', icon: '/icons/social/discord.svg', href: site.socials.discord },
   ].filter((s) => Boolean(s.href));
 
@@ -18,6 +16,7 @@ const Footer = () => {
         { label: 'About', to: '/about' },
         { label: 'Schedule', to: '/schedule' },
         { label: 'News', to: '/news' },
+        { label: 'Media Kit', href: 'https://drive.google.com/drive/folders/1fsYItzmfhU0IaA-mkGvaQ4Xp73BYBuQJ?usp=sharing' },
       ],
     },
     {

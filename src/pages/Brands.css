@@ -3,9 +3,10 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-top: 40px;
+  width: 100%;
 }
 
-.brand-card {
+.ecosystem-card {
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.03);
@@ -17,13 +18,13 @@
   height: 100%;
 }
 
-.brand-card:hover {
+.ecosystem-card:hover {
   transform: translateY(-4px);
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(229, 41, 78, 0.3);
 }
 
-.brand-logo-container {
+.ecosystem-logo-container {
   height: 100px;
   display: flex;
   align-items: center;
@@ -31,19 +32,19 @@
   margin-bottom: 24px;
 }
 
-.brand-logo {
+.ecosystem-logo {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
 }
 
-.brand-content {
+.ecosystem-content {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.brand-name {
+.ecosystem-name {
   font-size: 24px;
   font-weight: 700;
   color: #fff;
@@ -51,7 +52,7 @@
   font-family: 'AstroMono', monospace;
 }
 
-.brand-description {
+.ecosystem-desc {
   font-size: 16px;
   line-height: 1.6;
   color: var(--muted);
@@ -59,7 +60,7 @@
   flex-grow: 1;
 }
 
-.brand-link {
+.ecosystem-link {
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -70,20 +71,12 @@
   margin-top: auto;
 }
 
-.brand-link::after {
+.ecosystem-link::after {
   content: '→';
   margin-left: 8px;
   transition: transform 0.2s;
 }
 
-.brand-card:hover .brand-link::after {
+.ecosystem-card:hover .ecosystem-link::after {
   transform: translateX(4px);
-}
-
-/* Adjust breakpoints to keep 3 columns longer if possible, 
-   but switch to 1 column on mobile for readability */
-@media (max-width: 768px) {
-  .brands-grid {
-    grid-template-columns: 1fr;
-  }
 }

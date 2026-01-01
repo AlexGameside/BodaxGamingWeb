@@ -93,15 +93,15 @@
 
 .about-socials {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 48px;
   margin-top: 48px;
 }
 
 .about-social-card {
-  padding: 24px 20px; /* Increased padding */
-  min-height: 140px; /* Added min-height */
+  padding: 28px 24px;
+  min-height: 160px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.02);
@@ -110,7 +110,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px; /* Increased gap */
+  gap: 16px;
 }
 
 .about-social-card:hover {
@@ -119,17 +119,18 @@
   transform: translateY(-2px);
 }
 
-.about-social-card-top {
+.about-social-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  position: relative; /* For arrow positioning if needed */
+  justify-content: space-between;
+  width: 100%;
 }
 
 .about-social-icon {
-  width: 28px; /* Slightly larger icon */
-  height: 28px;
+  width: 36px;
+  height: 36px;
   background-color: var(--accent);
+  flex-shrink: 0;
   
   /* Masking */
   mask-repeat: no-repeat;
@@ -160,11 +161,19 @@
   -webkit-mask-image: url('/icons/social/tiktok.svg');
 }
 
+.about-social-icon.discord {
+  mask-image: url('/icons/social/discord.svg');
+  -webkit-mask-image: url('/icons/social/discord.svg');
+}
+
 .about-social-platform {
-  font-size: 13px;
+  font-size: 32px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
+  letter-spacing: 0.02em;
+  color: #fff;
+  line-height: 1.1;
+  margin-top: auto;
 }
 
 .about-social-arrow {

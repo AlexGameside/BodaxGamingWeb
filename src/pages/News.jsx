@@ -15,7 +15,7 @@ const News = () => {
     fetchNews();
   }, []);
 
-  const SOCIAL_PLATFORMS = ['x', 'twitter', 'tiktok', 'discord', 'youtube', 'twitch', 'instagram'];
+  const SOCIAL_PLATFORMS = ['x', 'twitter', 'tiktok', 'discord'];
 
   const fetchNews = async () => {
     try {
@@ -34,9 +34,6 @@ const News = () => {
           { id: 'social-x', title: 'Follow us on X', link: site.socials.x, platform: 'x', date: new Date(), image: '/icons/social/x.svg', content: 'Stay updated with the latest announcements and match results.' },
           { id: 'social-tiktok', title: 'Watch highlights on TikTok', link: site.socials.tiktok, platform: 'tiktok', date: new Date(), image: '/icons/social/tiktok.svg', content: 'Catch the best plays and behind-the-scenes moments.' },
           { id: 'social-discord', title: 'Join our Community', link: site.socials.discord, platform: 'discord', date: new Date(), image: '/icons/social/discord.svg', content: 'Chat with players, staff, and other fans in our Discord server.' },
-          { id: 'social-twitch', title: 'Watch Live', link: site.socials.twitch, platform: 'twitch', date: new Date(), image: '/icons/social/twitch.svg', content: 'Tune in to our live broadcasts and support the team.' },
-          { id: 'social-insta', title: 'Follow on Instagram', link: site.socials.instagram, platform: 'instagram', date: new Date(), image: '/icons/social/instagram.svg', content: 'See photos from events and daily life.' },
-          { id: 'social-yt', title: 'Subscribe on YouTube', link: site.socials.youtube, platform: 'youtube', date: new Date(), image: '/icons/social/youtube.svg', content: 'Watch VODs, guides, and other video content.' },
         ].filter(i => Boolean(i.link));
       }
 

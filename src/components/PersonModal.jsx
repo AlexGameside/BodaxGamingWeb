@@ -24,12 +24,8 @@ const PersonModal = ({ person, onClose }) => {
     if (!socials) return null;
     const items = [];
     if (socials.twitter || socials.x) items.push({ type: 'x', url: socials.twitter || socials.x });
-    if (socials.twitch) items.push({ type: 'twitch', url: socials.twitch.startsWith('http') ? socials.twitch : `https://twitch.tv/${socials.twitch}` });
-    if (socials.instagram) items.push({ type: 'instagram', url: socials.instagram });
-    if (socials.youtube) items.push({ type: 'youtube', url: socials.youtube });
     if (socials.tiktok) items.push({ type: 'tiktok', url: socials.tiktok });
     if (socials.discord) items.push({ type: 'discord', url: socials.discord });
-    if (socials.vlr) items.push({ type: 'vlr', url: socials.vlr });
 
     if (items.length === 0) return null;
 

@@ -24,37 +24,26 @@ const About = () => {
         </div>
 
         <section className="about-socials">
-          <a href="https://x.com/BodaxGaming" target="_blank" rel="noopener noreferrer" className="about-social-card">
-            <div className="about-social-card-top">
+          <a href="https://x.com/GamingBodax" target="_blank" rel="noopener noreferrer" className="about-social-card">
+            <div className="about-social-card-header">
               <div className="about-social-icon x" />
-              <span className="about-social-platform">X (Twitter)</span>
               <span className="about-social-arrow">→</span>
             </div>
-            <div className="about-social-count">1.2k Followers</div>
+            <div className="about-social-platform">X</div>
           </a>
-          <a href="https://youtube.com/@BodaxGaming" target="_blank" rel="noopener noreferrer" className="about-social-card">
-            <div className="about-social-card-top">
-              <div className="about-social-icon youtube" />
-              <span className="about-social-platform">YouTube</span>
-              <span className="about-social-arrow">→</span>
-            </div>
-            <div className="about-social-count">850 Subscribers</div>
-          </a>
-          <a href="https://instagram.com/bodaxgaming" target="_blank" rel="noopener noreferrer" className="about-social-card">
-            <div className="about-social-card-top">
-              <div className="about-social-icon instagram" />
-              <span className="about-social-platform">Instagram</span>
-              <span className="about-social-arrow">→</span>
-            </div>
-            <div className="about-social-count">2.1k Followers</div>
-          </a>
-          <a href="https://tiktok.com/@bodaxgaming" target="_blank" rel="noopener noreferrer" className="about-social-card">
-            <div className="about-social-card-top">
+          <a href="https://www.tiktok.com/@bodaxgaming" target="_blank" rel="noopener noreferrer" className="about-social-card">
+            <div className="about-social-card-header">
               <div className="about-social-icon tiktok" />
-              <span className="about-social-platform">TikTok</span>
               <span className="about-social-arrow">→</span>
             </div>
-            <div className="about-social-count">15k Followers</div>
+            <div className="about-social-platform">TikTok</div>
+          </a>
+          <a href="https://discord.gg/SCRE27SpvQ" target="_blank" rel="noopener noreferrer" className="about-social-card">
+            <div className="about-social-card-header">
+              <div className="about-social-icon discord" />
+              <span className="about-social-arrow">→</span>
+            </div>
+            <div className="about-social-platform">Discord</div>
           </a>
         </section>
 
@@ -97,11 +86,11 @@ const About = () => {
             <h2 className="media-kit-title">Get our Media Kit</h2>
             <a 
               className="cta-btn primary" 
-              href="/assets/BodaxGaming_MediaKit.pdf" 
+              href="https://drive.google.com/drive/folders/1fsYItzmfhU0IaA-mkGvaQ4Xp73BYBuQJ?usp=sharing" 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <span>Download PDF</span>
+              <span>View Media Kit</span>
               <span className="btn-arrow">→</span>
             </a>
           </div>

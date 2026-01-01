@@ -29,8 +29,6 @@ const Navbar = () => {
     const items = [
       { key: 'x', label: 'X', icon: '/icons/social/x.svg', href: site.socials.x },
       { key: 'tiktok', label: 'TikTok', icon: '/icons/social/tiktok.svg', href: site.socials.tiktok },
-      { key: 'instagram', label: 'Instagram', icon: '/icons/social/instagram.svg', href: site.socials.instagram },
-      { key: 'youtube', label: 'YouTube', icon: '/icons/social/youtube.svg', href: site.socials.youtube },
       { key: 'discord', label: 'Discord', icon: '/icons/social/discord.svg', href: site.socials.discord },
     ];
     return items.filter((i) => Boolean(i.href));
@@ -56,7 +54,7 @@ const Navbar = () => {
                 <NavLink
                   to={l.to}
                   end={l.to === '/'}
-                  className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                  className={({ isActive }) => `nav-link ${isActive ? 'active' : ''} ${l.label === 'Admin' ? 'nav-admin' : ''}`}
                 >
                   {l.label}
                 </NavLink>
@@ -90,6 +88,7 @@ const Navbar = () => {
           >
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
           </button>
         </div>
       </div>
@@ -101,10 +100,11 @@ const Navbar = () => {
       >
         <div className="mobile-menu" onClick={(e) => e.stopPropagation()}>
           <div className="mobile-menu-header">
-            <span className="pill">{site.game}</span>
-            <button className="btn" onClick={() => setIsMobileMenuOpen(false)}>
-              Close
-            </button>
+            <img
+              src="/icons/logos/bdx-g_logo-horizontal.svg"
+              alt={site.name}
+              className="mobile-menu-logo"
+            />
           </div>
 
           <ul className="mobile-nav-menu">
@@ -113,7 +113,7 @@ const Navbar = () => {
                 <NavLink
                   to={l.to}
                   end={l.to === '/'}
-                  className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+                  className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''} ${l.label === 'Admin' ? 'nav-admin' : ''}`}
                 >
                   {l.label}
                 </NavLink>
@@ -129,9 +129,9 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mobile-social-link"
+                aria-label={s.label}
               >
                 <img src={s.icon} alt="" className="social-icon" />
-                <span>{s.label}</span>
               </a>
             ))}
           </div>

@@ -38,25 +38,25 @@ const Brands = () => {
           {brands.map((brand) => (
             <a 
               key={brand.name} 
-              className="brand-card" 
+              className="ecosystem-card" 
               href={brand.href} 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <div className="brand-logo-container">
+              <div className="ecosystem-logo-container">
                 {brand.logoSrc && (
                   <img 
                     src={brand.logoSrc} 
                     alt={`${brand.name} logo`} 
-                    className="brand-logo"
+                    className="ecosystem-logo"
                   />
                 )}
               </div>
               
-              <div className="brand-content">
-                <h3 className="brand-name">{brand.name}</h3>
-                <p className="brand-description">{brand.description}</p>
-                <div className="brand-link">Visit Website</div>
+              <div className="ecosystem-content">
+                <h3 className="ecosystem-name">{brand.name}</h3>
+                <p className="ecosystem-desc">{brand.description}</p>
+                <div className="ecosystem-link">Visit Website</div>
               </div>
             </a>
           ))}
