@@ -20,9 +20,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize services
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-
-// Initialize Storage with explicit bucket name
-export const storage = getStorage(app, `gs://${firebaseConfig.storageBucket}`);
+export const storage = getStorage(app);
 
 export default app;
 

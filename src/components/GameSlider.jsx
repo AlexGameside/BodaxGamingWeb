@@ -180,7 +180,7 @@ const GameSlider = ({ games }) => {
                   <div className="game-teams">
                     <div className="team-info">
                       <div className="team-logo">
-                        <img src="/icons/logos/bodax-gaming_logo_2.svg" alt="BODAX Gaming" className="team-logo-img" />
+                        <img src="/icons/logos/bodax_logomark-light.png" alt="BODAX Gaming" className="team-logo-img" />
                       </div>
                       <div className="team-name">BODAX GAMING</div>
                     </div>

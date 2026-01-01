@@ -1,57 +1,115 @@
 import './Footer.css';
+import { Link } from 'react-router-dom';
+import { site } from '../config/site';
 
 const Footer = () => {
+  const socials = [
+    { key: 'x', label: 'X', icon: '/icons/social/x.svg', href: site.socials.x },
+    { key: 'tiktok', label: 'TikTok', icon: '/icons/social/tiktok.svg', href: site.socials.tiktok },
+    { key: 'discord', label: 'Discord', icon: '/icons/social/discord.svg', href: site.socials.discord },
+  ].filter((s) => Boolean(s.href));
+
+  const columns = [
+    {
+      title: 'Company',
+      links: [
+        { label: 'About', to: '/about' },
+        { label: 'Schedule', to: '/schedule' },
+        { label: 'News', to: '/news' },
+        { label: 'Media Kit', href: 'https://drive.google.com/drive/folders/1fsYItzmfhU0IaA-mkGvaQ4Xp73BYBuQJ?usp=sharing' },
+      ],
+    },
+    {
+      title: 'Our Brands',
+      links: [
+        { label: 'bodax.dev', href: 'https://bodax.dev' },
+        { label: 'Bodax Skirmish', href: 'https://bodax-skirmish.web.app/' },
+        { label: 'Bodax Masters', href: 'https://bodax-masters.web.app/' },
+      ],
+    },
+    {
+      title: 'Partners',
+      links: [
+        { label: 'Coming Soon' },
+      ],
+    },
+    {
+      title: 'Impressum & Privacy',
+      links: [
+        { label: 'Impressum', to: '/impressum' },
+        { label: 'Privacy', to: '/privacy' },
+      ],
+    },
+  ];
+
   return (
     <footer className="footer">
-      <div className="footer-container">
-        {/* Social Links Section */}
-        <div className="footer-section">
-          <h3 className="footer-title">FOLLOW US</h3>
-          <div className="social-links">
-            <a href="https://x.com/GamingBodax" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/x.svg" alt="X" className="social-icon" />
-              <span className="social-text">X</span>
-            </a>
-            <a href="https://www.tiktok.com/@bodaxgaming" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/tiktok.svg" alt="TikTok" className="social-icon" />
-              <span className="social-text">TIKTOK</span>
-            </a>
-            <a href="https://discord.gg/SCRE27SpvQ" target="_blank" rel="noopener noreferrer" className="social-link">
-              <img src="/icons/social/discord.svg" alt="Discord" className="social-icon" />
-              <span className="social-text">DISCORD</span>
-            </a>
+      <div className="footer-shell">
+        <div className="footer-main">
+          <div className="footer-left">
+            <img
+              src="/icons/logos/bdx-g_logo-horizontal.svg"
+              alt={`${site.name} logo`}
+              className="footer-logo"
+            />
+
+            <div className="footer-socials" aria-label="Social links">
+              {socials.map((s) => (
+                <a
+                  key={s.key}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social"
+                  aria-label={s.label}
+                  title={s.label}
+                >
+                  <img src={s.icon} alt="" className="footer-social-icon" />
+                </a>
+              ))}
+            </div>
           </div>
+
+          <nav className="footer-right" aria-label="Footer navigation">
+            {columns.map((col) => (
+              <div key={col.title} className="footer-col">
+                <div className="footer-title">{col.title}</div>
+                <div className="footer-links">
+                  {col.links.map((l) => {
+                    if (l.to) {
+                      return (
+                        <Link key={l.label} to={l.to} className="footer-link">
+                          {l.label}
+                        </Link>
+                      );
+                    }
+                    if (l.href) {
+                      return (
+                        <a
+                          key={l.label}
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="footer-link"
+                        >
+                          {l.label}
+                        </a>
+                      );
+                    }
+                    return (
+                      <span key={l.label} className="footer-link" style={{ cursor: 'default', opacity: 0.7 }}>
+                        {l.label}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </nav>
         </div>
 
-        {/* Sponsor Section */}
-        <div className="footer-section">
-          <h3 className="footer-title">SPONSORED BY</h3>
-          <div className="sponsor-section">
-            <a href="https://bodax.dev" target="_blank" rel="noopener noreferrer" className="sponsor-logo">
-              <img src="/icons/logos/bodax_logomark-light.png" alt="Bodax" className="sponsor-logo-img" />
-            </a>
-            <p className="sponsor-text">Official Gaming Partner</p>
-          </div>
-        </div>
-
-        {/* Other Links Section */}
-        <div className="footer-section">
-          <h3 className="footer-title">OTHER</h3>
-          <div className="other-links">
-            <a href="https://bodax-skirmish.web.app/" target="_blank" rel="noopener noreferrer" className="other-link">
-              BODAX SKIRMISHES
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <div className="footer-bottom">
-        <div className="footer-bottom-content">
-          <p className="copyright">© 2025 BODAX GAMING. ALL RIGHTS RESERVED.</p>
-          <div className="legal-links">
-            <a href="/impressum" className="impressum-link">IMPRESSUM</a>
-            <a href="/privacy" className="impressum-link">DATENSCHUTZ</a>
-          </div>
+        <div className="footer-bottom" aria-label="Footer meta">
+          <p className="footer-copy">© 2026 BODAX UG. All rights reserved.</p>
         </div>
       </div>
     </footer>

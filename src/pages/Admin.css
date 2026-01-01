@@ -1,723 +1,336 @@
 .admin-page {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  color: #fff;
+  min-height: 100vh;
+  padding-bottom: 80px;
 }
 
+/* Header */
 .admin-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.admin-header h1 {
-  font-size: 32px;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #fff;
-  font-family: 'AstroMono', 'Courier New', monospace;
-}
-
-.admin-header p {
-  color: #e5294f;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  margin-bottom: 20px;
-}
-
-.admin-header-actions {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-/* Filter tabs for matches */
-.filter-tabs {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-.filter-tab {
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid rgba(229, 41, 79, 0.3);
-  color: #ccc;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.filter-tab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(229, 41, 79, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.filter-tab:hover::before {
-  left: 100%;
-}
-
-.filter-tab:hover {
-  border-color: #e5294f;
-  color: #fff;
-}
-
-.filter-tab.active {
-  background: #e5294f;
-  border-color: #e5294f;
-  color: #000;
-  font-weight: bold;
-}
-
-.filter-tab.active::before {
-  display: none;
-}
-
-.home-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #e5294f;
-  color: #e5294f;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.home-btn:hover {
-  background: #e5294f;
-  color: #000;
-}
-
-.seed-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #4caf50;
-  color: #4caf50;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.seed-btn:hover:not(:disabled) {
-  background: #4caf50;
-  color: #000;
-}
-
-.seed-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.reseed-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #ff9800;
-  color: #ff9800;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.reseed-btn:hover:not(:disabled) {
-  background: #ff9800;
-  color: #000;
-}
-
-.reseed-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.logout-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #f44336;
-  color: #f44336;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-  background: #f44336;
-  color: #fff;
-}
-
-.admin-message {
-  padding: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
   margin-bottom: 30px;
-  text-align: center;
-  font-weight: bold;
-  border-radius: 8px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-.admin-message.success {
-  background: #4caf50;
-  color: #fff;
-  border: 2px solid #4caf50;
-}
-
-.admin-message.error {
-  background: #f44336;
-  color: #fff;
-  border: 2px solid #f44336;
-}
-
-.admin-tabs {
+.admin-header-inner {
   display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.tab-btn {
-  padding: 15px 30px;
-  background: transparent;
-  border: 2px solid rgba(229, 41, 79, 0.3);
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  transition: all 0.3s ease;
-}
-
-.tab-btn:hover {
-  border-color: #e5294f;
-  color: #e5294f;
-}
-
-.tab-btn.active {
-  background: #e5294f;
-  border-color: #e5294f;
-  color: #000;
-}
-
-.admin-form-container {
-  background: #1a1a1a;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  padding: 40px;
-  margin-bottom: 40px;
-  border-radius: 12px;
-}
-
-.admin-form-container h2 {
-  font-size: 24px;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #fff;
-  font-family: 'AstroMono', 'Courier New', monospace;
-}
-
-.admin-form {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-}
-
-.admin-page .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.admin-page .form-group label {
-  color: #e5294f;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
-  font-family: 'AstroMono', 'Courier New', monospace;
-}
-
-.admin-page .form-group input,
-.admin-page .form-group textarea {
-  padding: 15px;
-  background: #000000;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  color: #fff;
-  font-size: 14px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-/* Specific styling for date and time inputs */
-.admin-page .form-group input[type="date"],
-.admin-page .form-group input[type="time"] {
-  color-scheme: dark;
-}
-
-.admin-page .form-group input[type="date"]::-webkit-calendar-picker-indicator,
-.admin-page .form-group input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.admin-page .form-group input[type="date"]::-webkit-calendar-picker-indicator:hover,
-.admin-page .form-group input[type="time"]::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
-}
-
-.admin-page .form-group input:focus,
-.admin-page .form-group textarea:focus {
-  outline: none;
-  border-color: #e5294f;
-}
-
-.admin-page .form-group input::placeholder,
-.admin-page .form-group textarea::placeholder {
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 12px;
-}
-
-.admin-page .form-group textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* Logo input method toggle */
-.logo-input-method-toggle {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.method-toggle-btn {
-  flex: 1;
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid rgba(229, 41, 79, 0.3);
-  color: #ccc;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.method-toggle-btn:hover {
-  border-color: rgba(229, 41, 79, 0.6);
-  color: #fff;
-}
-
-.method-toggle-btn.active {
-  background: #e5294f;
-  border-color: #e5294f;
-  color: #000;
-  font-weight: bold;
-}
-
-/* URL input styling */
-.url-input {
-  padding: 15px;
-  background: #000000;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  color: #fff;
-  font-size: 14px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.url-input:focus {
-  outline: none;
-  border-color: #e5294f;
-}
-
-.url-input::placeholder {
-  color: #666;
-  text-transform: none;
-  letter-spacing: 0.5px;
-  font-size: 12px;
-}
-
-/* File input styling */
-.file-input {
-  padding: 12px;
-  background: #000000;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  color: #fff;
-  font-size: 14px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  width: 100%;
-}
-
-.file-input:hover {
-  border-color: rgba(229, 41, 79, 0.5);
-}
-
-.file-input:focus {
-  outline: none;
-  border-color: #e5294f;
-}
-
-.file-input::file-selector-button {
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid rgba(229, 41, 79, 0.3);
-  color: #e5294f;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 12px;
-  transition: all 0.3s ease;
-}
-
-.file-input::file-selector-button:hover {
-  background: rgba(229, 41, 79, 0.1);
-  border-color: #e5294f;
-}
-
-/* Image preview */
-.image-preview {
-  margin-top: 15px;
-  padding: 15px;
-  background: #000000;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 15px;
-}
-
-.image-preview img {
-  max-width: 200px;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.remove-image-btn {
-  padding: 8px 16px;
-  background: transparent;
-  border: 2px solid #f44336;
-  color: #f44336;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.remove-image-btn:hover {
-  background: #f44336;
-  color: #fff;
-}
-
-.form-help-text {
-  margin-top: 8px;
-  font-size: 11px;
-  color: #999;
-  text-transform: none;
-  letter-spacing: 0.5px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-style: italic;
-}
-
-.submit-btn {
-  padding: 15px 30px;
-  background: transparent;
-  border: 2px solid #e5294f;
-  color: #e5294f;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover:not(:disabled) {
-  background: #e5294f;
-  color: #000;
-}
-
-.submit-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.admin-list {
-  background: #1a1a1a;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  padding: 40px;
-  border-radius: 12px;
-}
-
-.admin-list h2 {
-  font-size: 24px;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #fff;
-  font-family: 'AstroMono', 'Courier New', monospace;
-}
-
-.admin-list .admin-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.admin-list .admin-header h2 {
-  margin-bottom: 0;
-}
-
-.sort-indicator {
-  font-size: 11px;
-  color: #999;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 8px 0;
-  font-family: 'AstroMono', 'Courier New', monospace;
-}
-
-.admin-items {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.admin-item {
-  background: #000000;
-  border: 2px solid rgba(229, 41, 79, 0.2);
-  padding: 25px;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  gap: 20px;
 }
 
-.admin-item:hover {
-  border-color: #e5294f;
+.admin-title {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
 }
 
 .admin-actions {
   display: flex;
-  gap: 15px;
+  gap: 10px;
+  align-items: center;
 }
 
-.edit-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #e5294f;
-  color: #e5294f;
-  cursor: pointer;
+.admin-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(244, 246, 248, 0.90);
+  font-size: 11px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
+  cursor: pointer;
+  transition: all 140ms ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.admin-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.admin-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.admin-btn.primary {
+  background: rgba(229, 41, 78, 0.10);
+  border-color: rgba(229, 41, 78, 0.35);
+  color: #fff;
+}
+
+.admin-btn.primary:hover {
+  background: rgba(229, 41, 78, 0.15);
+  border-color: rgba(229, 41, 78, 0.5);
+}
+
+.admin-btn.danger {
+  border-color: rgba(255, 69, 58, 0.3);
+  color: #ff453a;
+}
+
+.admin-btn.danger:hover {
+  background: rgba(255, 69, 58, 0.1);
+  border-color: #ff453a;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 30px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: fit-content;
+  margin-left: 0; /* Align left with title if grid is wide, or auto if centered? Let's keep it simple first. */
+  margin-right: auto; 
+}
+
+/* Adjust layout to put tabs in line or keep separate? 
+   User asked for compact header. The tabs are below header.
+   If I want really compact, maybe move tabs into header? 
+   No, that might be too crowded. 
+   Let's just align tabs to the left to match the new left-aligned title 
+   or keep them centered. 
+   If title is left, tabs centered looks a bit off. 
+   But the grid is full width. 
+   Let's align tabs to the start (left) to flow better.
+*/
+
+.admin-tabs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 4px;
+  margin-bottom: 24px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px; /* Changed from pill for a more compact bar look or keep pill? */
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: fit-content;
+  /* Remove auto margins to align left */
+}
+
+.tab-btn {
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: rgba(244, 246, 248, 0.6);
   font-size: 12px;
-  transition: all 0.3s ease;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 140ms ease;
 }
 
-.edit-btn:hover {
-  background: #e5294f;
-  color: #000;
+.tab-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.edit-notice {
+.tab-btn.active {
+  background: rgba(229, 41, 78, 0.15);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Content Grid */
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Forms */
+.admin-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.panel-title {
+  margin: 0 0 20px;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(244, 246, 248, 0.6);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  transition: border-color 140ms ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: rgba(229, 41, 78, 0.5);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
   background: #e5294f;
-  color: #000;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 6px;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 140ms ease;
+}
+
+.submit-btn:hover {
+  background: #ff335c;
+  transform: translateY(-1px);
+}
+
+/* List Items */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 800px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.list-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 140ms ease;
 }
 
-.cancel-edit-btn {
-  padding: 8px 16px;
-  background: #000;
-  border: 2px solid #000;
-  color: #e5294f;
-  cursor: pointer;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 4px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  transition: all 0.3s ease;
+.list-item:hover {
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-.cancel-edit-btn:hover {
-  background: #e5294f;
-  color: #000;
-}
-
-.item-content {
+.item-info {
   flex: 1;
 }
 
 .item-title {
-  font-weight: bold;
-  margin-bottom: 8px;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
   color: #fff;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-.item-details {
-  color: #e5294f;
+.item-sub {
   font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: 'AstroMono', 'Courier New', monospace;
+  color: rgba(244, 246, 248, 0.5);
+}
+
+.item-actions {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
-  align-items: center;
 }
 
-.item-details .match-time {
-  color: #e5294f;
-  font-weight: bold;
-}
-
-.item-details .match-status {
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.delete-btn {
-  padding: 10px 20px;
-  background: transparent;
-  border: 2px solid #f44336;
-  color: #f44336;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
   border-radius: 6px;
-  font-family: 'AstroMono', 'Courier New', monospace;
-  font-size: 12px;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(244, 246, 248, 0.6);
+  cursor: pointer;
+  transition: all 140ms ease;
 }
 
-.delete-btn:hover {
-  background: #f44336;
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
   color: #fff;
 }
 
-.no-items {
+.icon-btn.delete:hover {
+  background: rgba(255, 69, 58, 0.1);
+  border-color: rgba(255, 69, 58, 0.3);
+  color: #ff453a;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.status-msg {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
   text-align: center;
-  color: #e5294f;
-  padding: 40px;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-family: 'AstroMono', 'Courier New', monospace;
 }
 
-@media (max-width: 1200px) {
-  .admin-header h1 {
-    font-size: 28px;
-  }
+.status-msg.success {
+  background: rgba(50, 215, 75, 0.1);
+  color: #32d74b;
+  border: 1px solid rgba(50, 215, 75, 0.2);
 }
 
-@media (max-width: 768px) {
-  .admin-header h1 {
-    font-size: 24px;
-  }
-  
-  .admin-item {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-  
-  .delete-btn {
-    width: 100%;
-  }
-  
-  .filter-tabs {
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-  }
-  
-  .filter-tab {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .admin-header h1 {
-    font-size: 20px;
-  }
+.status-msg.error {
+  background: rgba(255, 69, 58, 0.1);
+  color: #ff453a;
+  border: 1px solid rgba(255, 69, 58, 0.2);
 }

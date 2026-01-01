@@ -1,0 +1,198 @@
+.teams-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 0 18px;
+}
+
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.roster-card {
+  grid-column: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+  box-shadow: var(--shadow2);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.roster-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(229, 41, 78, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.roster-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: #09090b;
+}
+
+.roster-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: saturate(0.95) contrast(1.05);
+}
+
+.roster-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+  background: #09090b;
+}
+
+.roster-photo-placeholder img {
+  width: 100%;
+  height: auto;
+  opacity: 0.1;
+  margin-bottom: 0;
+}
+
+.roster-meta {
+  padding: 16px 20px;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.roster-header-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.roster-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.roster-ign-main {
+  margin: 0;
+  font-size: 16px; /* Slightly larger for main IGN */
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.roster-real-name-sub {
+  font-size: 12px;
+  color: rgba(244, 246, 248, 0.60); /* Grey/muted */
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Reusing existing .roster-country-tag but ensuring alignment */
+.roster-country-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* Clean up old classes if no longer used, or keep for safety/transitions */
+.roster-name-row {
+  display: none; /* Deprecated in this view */
+}
+
+/* Existing styles below... */
+.roster-country {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-flag {
+  width: 18px;
+  height: auto;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+.country-name {
+  font-size: 11px;
+  color: rgba(244, 246, 248, 0.60);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.roster-socials {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap; /* Allow wrapping if many socials */
+}
+
+.roster-social {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.roster-social:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(229, 41, 78, 0.2);
+}
+
+.roster-social img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.9;
+  transition: opacity 140ms ease;
+}
+
+/* Brand Colors on Hover */
+.roster-social[aria-label="Twitch"]:hover {
+  border-color: #9146FF;
+  background: rgba(145, 70, 255, 0.15);
+}
+
+.roster-social[aria-label="YouTube"]:hover {
+  border-color: #FF0000;
+  background: rgba(255, 0, 0, 0.15);
+}
+
+.roster-social[aria-label="X"]:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.roster-social[aria-label="Instagram"]:hover {
+  border-color: #E1306C;
+  background: rgba(225, 48, 108, 0.15);
+}
+
+.roster-social[aria-label="TikTok"]:hover {
+  border-color: #00f2ea;
+  background: rgba(0, 242, 234, 0.15);
+}
+
+@media (max-width: 980px) {
+  /* .roster-card { grid-column: span 6; } - removed due to auto-fill */
+}
+
+@media (max-width: 600px) {
+  /* .roster-card { grid-column: span 12; } - removed due to auto-fill */
+}
